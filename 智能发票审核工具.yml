@@ -1,0 +1,919 @@
+app:
+  description: 基于AI的自动发票识别与审核工具，可上传图片并校验发票信息。
+  icon: 🔍
+  icon_background: '#FFE4E8'
+  icon_type: emoji
+  mode: workflow
+  name: 智能发票审核工具
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.41@5e9026df7d8449ebacf5661f0ab286331085605f34fab37dfdf43d19b9b5e363
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: list-operator
+      id: 1760760738509-source-1760760788352-target
+      selected: false
+      source: '1760760738509'
+      sourceHandle: source
+      target: '1760760788352'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: list-operator
+        targetType: iteration
+      id: 1760760788352-source-1760760901346-target
+      selected: false
+      source: '1760760788352'
+      sourceHandle: source
+      target: '1760760901346'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: list-operator
+      id: 1760760738509-source-1760760914575-target
+      selected: false
+      source: '1760760738509'
+      sourceHandle: source
+      target: '1760760914575'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: list-operator
+        targetType: iteration
+      id: 1760760914575-source-1760760975262-target
+      selected: false
+      source: '1760760914575'
+      sourceHandle: source
+      target: '1760760975262'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1760760901346'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1760760901346start-source-1760761076154-target
+      selected: false
+      source: 1760760901346start
+      sourceHandle: source
+      target: '1760761076154'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1760760975262'
+        sourceType: document-extractor
+        targetType: llm
+      id: 1760761677126-source-1760761692412-target
+      selected: false
+      source: '1760761677126'
+      sourceHandle: source
+      target: '1760761692412'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1760760975262'
+        sourceType: iteration-start
+        targetType: document-extractor
+      id: 1760760975262start-source-1760761677126-target
+      selected: false
+      source: 1760760975262start
+      sourceHandle: source
+      target: '1760761677126'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1760760901346-source-1760762862703-target
+      selected: false
+      source: '1760760901346'
+      sourceHandle: source
+      target: '1760762862703'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1760760975262-source-1760762862703-target
+      selected: false
+      source: '1760760975262'
+      sourceHandle: source
+      target: '1760762862703'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1760762862703-source-1760765077341-target
+      selected: false
+      source: '1760762862703'
+      sourceHandle: source
+      target: '1760765077341'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1760765077341-source-1760766054481-target
+      selected: false
+      source: '1760765077341'
+      sourceHandle: source
+      target: '1760766054481'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1760766054481-source-1760763281637-target
+      selected: false
+      source: '1760766054481'
+      sourceHandle: source
+      target: '1760763281637'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: '欢迎使用发票智能审核系统
+
+          支持 JPG/PNG/PDF 格式，可批量上传。
+
+          系统将自动识别发票关键信息，并按预设规则进行合规性审核。'
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 上传发票（支持图片和PDF，最多5个）
+          max_length: 5
+          options: []
+          required: true
+          type: file-list
+          variable: files
+        - default: 北京字节多多科技有限责任公司,测试客户A
+          hint: ''
+          label: 准入购买方名称（多个用逗号隔开）
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: config_company
+        - default: 住宿服务,咨询服务,餐饮服务
+          hint: ''
+          label: 允许报销的项目类型（多个用逗号隔开）
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: config_projects
+      height: 252
+      id: '1760760738509'
+      position:
+        x: -23.36276454930595
+        y: 315.915907117741
+      positionAbsolute:
+        x: -23.36276454930595
+        y: 315.915907117741
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        extract_by:
+          enabled: false
+          serial: '1'
+        filter_by:
+          conditions:
+          - comparison_operator: in
+            key: type
+            value:
+            - image
+          enabled: true
+        item_var_type: file
+        limit:
+          enabled: false
+          size: 10
+        order_by:
+          enabled: false
+          key: ''
+          value: asc
+        selected: false
+        title: 筛选图片
+        type: list-operator
+        var_type: array[file]
+        variable:
+        - '1760760738509'
+        - files
+      height: 91
+      id: '1760760788352'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 178
+        is_parallel: false
+        iterator_input_type: array[file]
+        iterator_selector:
+        - '1760760788352'
+        - result
+        output_selector:
+        - '1760761076154'
+        - structured_output
+        output_type: array[object]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1760760901346start
+        title: 迭代识别图片
+        type: iteration
+        width: 388
+      height: 178
+      id: '1760760901346'
+      position:
+        x: 1191.9956375346856
+        y: 35.51347092646563
+      positionAbsolute:
+        x: 1191.9956375346856
+        y: 35.51347092646563
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 388
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1760760901346start
+      parentId: '1760760901346'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 1215.9956375346856
+        y: 103.51347092646563
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: ''
+        extract_by:
+          enabled: false
+          serial: '1'
+        filter_by:
+          conditions:
+          - comparison_operator: in
+            key: type
+            value:
+            - document
+          enabled: true
+        item_var_type: file
+        limit:
+          enabled: false
+          size: 10
+        order_by:
+          enabled: false
+          key: ''
+          value: asc
+        selected: false
+        title: 筛选pdf
+        type: list-operator
+        var_type: array[file]
+        variable:
+        - '1760760738509'
+        - files
+      height: 91
+      id: '1760760914575'
+      position:
+        x: 384
+        y: 468.2964254707359
+      positionAbsolute:
+        x: 384
+        y: 468.2964254707359
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 182
+        is_parallel: false
+        iterator_input_type: array[file]
+        iterator_selector:
+        - '1760760914575'
+        - result
+        output_selector:
+        - '1760761692412'
+        - structured_output
+        output_type: array[object]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1760760975262start
+        title: 迭代识别PDF
+        type: iteration
+        width: 887
+      height: 182
+      id: '1760760975262'
+      position:
+        x: 384
+        y: 717.1276360445993
+      positionAbsolute:
+        x: 384
+        y: 717.1276360445993
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 887
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1760760975262start
+      parentId: '1760760975262'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 408
+        y: 785.1276360445993
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1760760901346'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-vl-max
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 9ac0bbd4-581b-4b80-ba1c-b668fbcd238c
+          role: system
+          text: "你是一位专业的中国发票识别与审计专家。请严格按照以下JSON格式提取发票信息，不要遗漏，不要编造：\n\n{\n  \"file_name\"\
+            : \"文件名（从文件信息中获取）\",\n  \"file_type\": \"image 或 document\",\n  \"payer_name\"\
+            : \"购买方名称（必须是完整公司名）\",\n  \"taxpayer_num\": \"购买方纳税人识别号（15或18位）\",\n \
+            \ \"project_name\": \"项目名称（仅提取`*`或括号内的内容，若无则填写'其他服务'）\",\n  \"invoicing_date\"\
+            : \"开票日期，严格使用 YYYY-MM-DD 格式\",\n  \"tax_num\": \"发票号码\",\n  \"total_price\"\
+            : \"价税合计金额（小写数字）\",\n  \"invoice_code\": \"发票代码（如有）\"\n}\n\n注意：金额请只保留数字和小数点；日期必须是有效日期。"
+        - id: 401816ef-597d-4b72-b33d-04baa639a9cd
+          role: user
+          text: '文件相关信息：
+
+            <file_data>
+
+            {{#1760760901346.item.name#}}
+
+            {{#1760760901346.item.type#}}
+
+            </file_data>'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              file_name:
+                description: 文件的名称，从文件相关信息中提取
+                type: string
+              file_type:
+                description: 文件的类型，从文件相关信息中提取
+                type: string
+              invoicing_date:
+                description: 开票日期
+                type: string
+              payer_name:
+                description: 付款方企业名称
+                type: string
+              project_name:
+                description: 项目名称
+                type: string
+              tax_num:
+                description: 发票号码
+                type: string
+              taxpayer_num:
+                description: 付款方统一社会信用代码/纳税人识别号
+                type: string
+              total_price:
+                description: 价税合计小写金额
+                type: number
+            required:
+            - payer_name
+            - taxpayer_num
+            - project_name
+            - invoicing_date
+            - tax_num
+            - total_price
+            - file_name
+            - file_type
+            type: object
+        structured_output_enabled: true
+        title: LLM视觉识别
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1760760901346'
+            - item
+          enabled: true
+      height: 87
+      id: '1760761076154'
+      parentId: '1760760901346'
+      position:
+        x: 128
+        y: 68.1964734769345
+      positionAbsolute:
+        x: 1319.9956375346856
+        y: 103.70994440340013
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        is_array_file: false
+        iteration_id: '1760760975262'
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - '1760760975262'
+        - item
+      height: 103
+      id: '1760761677126'
+      parentId: '1760760975262'
+      position:
+        x: 208.90309921074572
+        y: 66.71873157433185
+      positionAbsolute:
+        x: 592.9030992107457
+        y: 783.8463676189311
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1760760975262'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: d4af6c8a-eac8-45fb-a761-eae79a4e739a
+          role: system
+          text: "{\n    \"file_name\":\"文件的名称，从文件相关信息中提取\",\n    \"file_type\":\"\
+            文件的类型，从文件相关信息中提取\",\n    \"payer_name\":\"购买方公司名\",\n    \"seller_name\"\
+            :\"销售方公司名\",\n    \"taxpayer_num\":\"购买方统一社会信用代码/纳税人识别号\",\n    \"project_name\"\
+            :\"项目名称，仅提取`*`包裹的内容\",\n    \"invoicing_date\":\"开票日期，使用 YYYY-MM-DD 格式输出\"\
+            ,\n    \"tax_num\":\"发票号码\",\n    \"total_price\":\"价税合计总结额，小写数字，不含人民币标识符号\"\
+            ,\n    \"invoice_code\":\"发票代码\"\n}"
+        - id: 2ba61e7c-fe77-4923-8e86-d72363465edb
+          role: user
+          text: '发票中提取的文本：
+
+            <content>
+
+            {{#1760761677126.text#}}
+
+            </content>
+
+            文件相关信息：
+
+            <file_data>
+
+            {{#1760760975262.item.name#}}
+
+            {{#1760760975262.item.type#}}
+
+            </file_data>'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              file_name:
+                description: 文件的名称，从文件相关信息中提取
+                type: string
+              file_type:
+                description: 文件的类型，从文件相关信息中提取
+                type: string
+              invoicing_date:
+                description: 开票日期
+                type: string
+              payer_name:
+                description: 付款方企业名称
+                type: string
+              project_name:
+                description: 项目名称
+                type: string
+              tax_num:
+                description: 发票号码
+                type: string
+              taxpayer_num:
+                description: 付款方统一社会信用代码/纳税人识别号
+                type: string
+              total_price:
+                description: 价税合计小写金额
+                type: number
+            required:
+            - payer_name
+            - taxpayer_num
+            - project_name
+            - invoicing_date
+            - tax_num
+            - total_price
+            - file_type
+            type: object
+        structured_output_enabled: true
+        title: LLM结构化提取
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1760761692412'
+      parentId: '1760760975262'
+      position:
+        x: 583.372862622494
+        y: 66.19367917386762
+      positionAbsolute:
+        x: 967.372862622494
+        y: 783.3213152184669
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1002
+    - data:
+        code: "def main(arg1: list, arg2: list) -> dict:\n    # 如果 arg1 或 arg2 是 None，则替换为空列表\n\
+          \    if arg1 is None:\n        arg1 = []\n    if arg2 is None:\n       \
+          \ arg2 = []\n    \n    merged_array = arg1 + arg2\n    return {'result':\
+          \ merged_array}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[object]
+        selected: false
+        title: 合并输出
+        type: code
+        variables:
+        - value_selector:
+          - '1760760901346'
+          - output
+          value_type: array[object]
+          variable: arg1
+        - value_selector:
+          - '1760760975262'
+          - output
+          value_type: array[object]
+          variable: arg2
+      height: 51
+      id: '1760762862703'
+      position:
+        x: 1826.5797651060263
+        y: 293.17726614403153
+      positionAbsolute:
+        x: 1826.5797651060263
+        y: 293.17726614403153
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1760766054481'
+          - result
+          value_type: string
+          variable: result
+        selected: false
+        title: 结束
+        type: end
+      height: 87
+      id: '1760763281637'
+      position:
+        x: 3020.8284588781744
+        y: 293.17726614403153
+      positionAbsolute:
+        x: 3020.8284588781744
+        y: 293.17726614403153
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import re\nfrom datetime import datetime\nfrom typing import List,\
+          \ Dict, Any\n\ndef main(data: List[Dict], comp_rule: str, proj_rule: str)\
+          \ -> Dict:\n    \"\"\"\n    终极修复版：可配置规则 + 三级风控分级审核引擎（彻底修复 NameError: 'S'\
+          \ 报错）\n    \"\"\"\n    # 兼容性处理\n    if data is None: data = []\n    \n \
+          \   # 解析可配置规则（切分为列表并去空格）\n    allowed_companies = [c.strip() for c in comp_rule.split(',')\
+          \ if c.strip()] if comp_rule else []\n    allowed_projects = [p.strip()\
+          \ for p in proj_rule.split(',') if p.strip()] if proj_rule else []\n   \
+          \ \n    result = []\n    \n    for item in data:\n        temp = item.copy()\n\
+          \        reject_reasons = []  # 致命错误挂载点\n        review_reasons = []  #\
+          \ 警告/复核项挂载点\n        \n        # --- 0. 严密兜底逻辑：严格校验必须存在的核心字段（此时 seller_name\
+          \ 允许为空，不触发一刀切复核） ---\n        strict_critical_fields = ['payer_name', 'taxpayer_num',\
+          \ 'total_price', 'invoicing_date']\n        missing_fields = [f for f in\
+          \ strict_critical_fields if not temp.get(f) or str(temp.get(f)).strip()\
+          \ in ['无', '未知', 'None', '']]\n        \n        if missing_fields:\n  \
+          \          temp['audit_status'] = 'REVIEW'\n            temp['reason'] =\
+          \ f\"识别异常：关键字段缺失 {missing_fields}，转入人工兜底复核\"\n            result.append(temp)\n\
+          \            continue\n            \n        # ====================================================\n\
+          \        # \U0001F6D1 强红线 1：【个人抬头强拦截】\n        # ====================================================\n\
+          \        payer_name_str = str(temp.get('payer_name', ''))\n        if \"\
+          个人\" in payer_name_str or \"马梦晗\" in payer_name_str:\n            reject_reasons.append(\"\
+          禁止使用个人抬头实体进行企业报销红线拦截\")\n            \n        # ====================================================\n\
+          \        # \U0001F680 \U0001F525 强红线 2：【钓鱼检测 - 自开自报安全拦截】\n        # ====================================================\n\
+          \        payer_clean = payer_name_str.strip()\n        seller_clean = str(temp.get('seller_name',\
+          \ '')).strip()\n        \n        invalid_names = ['无', '未知', 'None', '',\
+          \ 'null']\n        \n        if payer_clean and seller_clean and (payer_clean\
+          \ == seller_clean) and (seller_clean not in invalid_names):\n          \
+          \  reject_reasons.append(\"触发自开自报红线拦截（购买方与销售方名称完全一致，存在虚开或老鼠仓风险）\")\n\n \
+          \       # --- 1. 购买方企业白名单校验 (参数化配置-升级容错版) ---\n        payer = temp.get('payer_name',\
+          \ '')\n        if allowed_companies:\n            matched_company = False\n\
+          \            for comp in allowed_companies:\n                if comp in\
+          \ payer or payer in comp:\n                    matched_company = True\n\
+          \                    break\n            if not matched_company:\n      \
+          \          reject_reasons.append(\"购买方名称不匹配企业白名单\")\n        else:\n   \
+          \         if \"北京字节多多\" not in payer:\n                reject_reasons.append(\"\
+          购买方名称不匹配(默认)\")\n\n        # --- 2. 纳税人识别号格式校验 ---\n        tax_num = temp.get('taxpayer_num',\
+          \ '')\n        if len(str(tax_num)) not in [15, 18]:\n            reject_reasons.append(\"\
+          纳税人识别号位数异常(非15或18位)\")\n\n        # --- 3. 项目名称校验 (✨ 干净无错版，自带客运服务费绿色通道)\
+          \ ---\n        project = temp.get('project_name', '')\n        if \"客运\"\
+          \ in project or \"运输\" in project:\n            # 如果是打车费或客运服务，属于高频合理企业消费，直接免检放行\n\
+          \            pass \n        elif allowed_projects:\n            if not any(p\
+          \ in project for p in allowed_projects):\n                review_reasons.append(\"\
+          消费项目不在常规白名单内，需财务确认合规性\")\n\n        # --- 4. 开票日期时效校验 ---\n        try:\n\
+          \            date_str = str(temp.get('invoicing_date', ''))[:10]\n     \
+          \       invoice_date = datetime.strptime(date_str, '%Y-%m-%d')\n       \
+          \     if invoice_date.year < 2025:\n                reject_reasons.append(\"\
+          开票日期早于2025年(跨年报销红线)\")\n        except:\n            review_reasons.append(\"\
+          开票日期格式异常，需人工核对\")\n\n        # --- 5. 金额合规合理性校验 ---\n        try:\n    \
+          \        total = float(temp.get('total_price', 0))\n            if total\
+          \ <= 0:\n                reject_reasons.append(\"发票金额小于等于0\")\n        \
+          \    elif total >= 5000:\n                review_reasons.append(\"单张发票金额超过¥5,000，触发大额审计\"\
+          )\n        except:\n            reject_reasons.append(\"金额格式非有效数字\")\n\n\
+          \        # --- 6. 三级风控状态决策最终路由 ---\n        if reject_reasons:\n       \
+          \     temp['audit_status'] = 'REJECT'\n            temp['reason'] = \"❌\
+          \ 拒绝： \" + \"；\".join(reject_reasons)\n        elif review_reasons:\n  \
+          \          temp['audit_status'] = 'REVIEW'\n            temp['reason'] =\
+          \ \"⚠️ 复核： \" + \"；\".join(review_reasons)\n        else:\n            temp['audit_status']\
+          \ = 'PASS'\n            temp['reason'] = \"✅ 自动通过\"\n            \n    \
+          \    result.append(temp)\n        \n    return {'result': result}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[object]
+        selected: false
+        title: 机器审核
+        type: code
+        variables:
+        - value_selector:
+          - '1760762862703'
+          - result
+          value_type: array[object]
+          variable: data
+        - value_selector:
+          - '1760760738509'
+          - config_company
+          value_type: string
+          variable: comp_rule
+        - value_selector:
+          - '1760760738509'
+          - config_projects
+          value_type: string
+          variable: proj_rule
+      height: 51
+      id: '1760765077341'
+      position:
+        x: 2198.2768680640274
+        y: 293.17726614403153
+      positionAbsolute:
+        x: 2198.2768680640274
+        y: 293.17726614403153
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "def main(arg1: list) -> dict:\n    \"\"\"\n    生成三级风控发票审核 Markdown\
+          \ 报告\n    \"\"\"\n    result = arg1\n    if not result or not isinstance(result,\
+          \ list):\n        return {'result': '❌ 没有收到有效发票数据'}\n    \n    passed =\
+          \ []\n    review = []\n    rejected = []\n    \n    # 按照风控状态分类\n    for\
+          \ item in result:\n        status = item.get('audit_status', 'REVIEW')\n\
+          \        # 移除内部状态字段，保持报告整洁\n        clean_item = {k: v for k, v in item.items()\
+          \ if k not in ['audit_status']}\n        \n        if status == 'PASS':\n\
+          \            passed.append(clean_item)\n        elif status == 'REVIEW':\n\
+          \            review.append(clean_item)\n        else:\n            rejected.append(clean_item)\n\
+          \            \n    def markdown_table(items, title):\n        if not items:\n\
+          \            return f\"**{title}**：（无记录）\\n\\n\"\n        \n        headers\
+          \ = list(items[0].keys())\n        lines = [\"| \" + \" | \".join(headers)\
+          \ + \" |\",\n                 \"|\" + \"|\".join([\"---\"] * len(headers))\
+          \ + \"|\"]\n        \n        for item in items:\n            row = \"|\
+          \ \" + \" | \".join(str(item.get(h, '')) for h in headers) + \" |\"\n  \
+          \          lines.append(row)\n        \n        return f\"### {title}（{len(items)}\
+          \ 条）\\n\" + \"\\n\".join(lines) + \"\\n\\n\"\n    \n    total = len(result)\n\
+          \    summary = (\n        f\"## \U0001F4D1 智能发票合规风控审计报告\\n\"\n        f\"\
+          **总处理发票**：{total} 条\\n\"\n        f\"- ✨ 自动直通 (PASS)：`{len(passed)}` 条\\\
+          n\"\n        f\"- ⏳ 人工复核 (REVIEW)：`{len(review)}` 条\\n\"\n        f\"- \U0001F6AB\
+          \ 风险拒收 (REJECT)：`{len(rejected)}` 条\\n\\n\"\n        f\"---\\n\\n\"\n  \
+          \  )\n    \n    report = (\n        summary \n        + markdown_table(passed,\
+          \ \"✅ 自动直通发票（无需人工干预）\") \n        + markdown_table(review, \"⚠️ 需人工复核发票（边缘风险/大额审计）\"\
+          ) \n        + markdown_table(rejected, \"❌ 风险拒收发票（触犯合规红线）\")\n    )\n  \
+          \  \n    return {'result': report}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 输出为表格
+        type: code
+        variables:
+        - value_selector:
+          - '1760765077341'
+          - result
+          value_type: array[object]
+          variable: arg1
+      height: 51
+      id: '1760766054481'
+      position:
+        x: 2609.1566238269343
+        y: 293.17726614403153
+      positionAbsolute:
+        x: 2609.1566238269343
+        y: 293.17726614403153
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -2086.135474295871
+      y: 138.94995379439032
+      zoom: 0.837746039214147
+  rag_pipeline_variables: []

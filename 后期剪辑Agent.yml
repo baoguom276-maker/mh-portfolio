@@ -1,0 +1,252 @@
+app:
+  description: 当所有视频片段生成完毕后调用。输入：视频URL列表 + 对话时间轴。输出：成品视频URL（高保真Mock，含AI配音、淡入淡出转场、人物一致性优化）。
+  icon: 🎬
+  icon_background: '#FF6B6B'
+  icon_type: emoji
+  mode: workflow
+  name: 后期剪辑Agent
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      - .MP4
+      - .MOV
+      - .MPEG
+      - .MPGA
+      allowed_file_types:
+      - image
+      - video
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: start-source-1780412671919-target
+      source: start
+      sourceHandle: source
+      target: '1780412671919'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1780412671919-source-end-target
+      source: '1780412671919'
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: video_urls
+          max_length: 65536
+          options: []
+          required: true
+          type: paragraph
+          variable: video_urls
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hint: ''
+          label: dialogues
+          max_length: 5
+          options: []
+          placeholder: ''
+          required: false
+          type: json_object
+          variable: dialogues
+        - default: final_story_v1
+          hint: ''
+          label: output_name
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: output_name
+      height: 160
+      id: start
+      position:
+        x: 0
+        y: 0
+      positionAbsolute:
+        x: 0
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1780412671919'
+          - status
+          value_type: string
+          variable: status
+        - value_selector:
+          - '1780412671919'
+          - message
+          value_type: string
+          variable: message
+        - value_selector:
+          - '1780412671919'
+          - final_video
+          value_type: string
+          variable: final_video
+        - value_selector:
+          - '1780412671919'
+          - clip_id
+          value_type: string
+          variable: clip_id
+        - value_selector:
+          - '1780412671919'
+          - clip_log
+          value_type: string
+          variable: clip_log
+        selected: false
+        title: 结束
+        type: end
+      height: 191
+      id: end
+      position:
+        x: 683
+        y: 10
+      positionAbsolute:
+        x: 683
+        y: 10
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\nimport uuid\n\ndef main(video_urls: list, dialogues: list\
+          \ = None, output_name: str = \"final_video\") -> dict:\n    clip_id = str(uuid.uuid4())[:8]\n\
+          \    log = {\n        \"input_videos\": len(video_urls) if video_urls else\
+          \ 4,\n        \"transitions\": [\"fade\"] * 3,\n        \"resolution\":\
+          \ \"1280x720\",\n        \"estimated_duration\": 20,\n        \"ai_dubbing\"\
+          : \"虞寻歌内心OS：2078年……我重生了？游戏入侵前一年！\",\n        \"character_consistency\":\
+          \ \"94.2%\"\n    }\n    \n    final_mp4_url = \"https://mtest-ai.oss-cn-beijing.aliyuncs.com/1-4.mp4\"\
+          \n    \n    return {\n        \"final_video\": final_mp4_url,\n        \"\
+          clip_log\": json.dumps(log, ensure_ascii=False),\n        \"status\": \"\
+          success\",\n        \"message\": f\"✅ 成功将分镜视频序列自动合成！\\n\U0001F4CA 智能垫图人物一致性率达\
+          \ {log['character_consistency']}\\n\U0001F3AC 淡入淡出转场应用成功\\n\U0001F399️ AI配音已嵌入：{log['ai_dubbing']}\\\
+          n⏱️ 成片时长：{log['estimated_duration']}秒\",\n        \"clip_id\": clip_id\n\
+          \    }"
+        code_language: python3
+        outputs:
+          clip_id:
+            children: null
+            type: string
+          clip_log:
+            children: null
+            type: string
+          final_video:
+            children: null
+            type: string
+          message:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - start
+          - video_urls
+          value_type: string
+          variable: video_urls
+        - value_selector:
+          - start
+          - dialogues
+          value_type: object
+          variable: dialogues
+        - value_selector:
+          - start
+          - output_name
+          value_type: string
+          variable: output_name
+      height: 51
+      id: '1780412671919'
+      position:
+        x: 312
+        y: 60
+      positionAbsolute:
+        x: 312
+        y: 60
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 63.05000000000001
+      y: 347.15
+      zoom: 0.7
+  rag_pipeline_variables: []

@@ -1,0 +1,275 @@
+app:
+  description: 将剧本转化为即梦AI视频生成的分镜CSV表
+  icon: movie_camera
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 分镜规划Agent
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.41@5e9026df7d8449ebacf5661f0ab286331085605f34fab37dfdf43d19b9b5e363
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1780300000000-source-1780300000001-target
+      source: '1780300000000'
+      sourceHandle: source
+      target: '1780300000001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1780300000001-source-1780300000002-target
+      source: '1780300000001'
+      sourceHandle: source
+      target: '1780300000002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1780300000002-source-1780300000003-target
+      source: '1780300000002'
+      sourceHandle: source
+      target: '1780300000003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 剧本内容
+          max_length: 100000
+          options: []
+          placeholder: 请粘贴完整剧本内容...
+          required: true
+          type: paragraph
+          variable: script
+        - default: ''
+          hint: ''
+          label: 角色图片URL
+          max_length: 5000
+          options: []
+          placeholder: '{"虞寻歌": "http://...", "虞寻欢": "http://..."}'
+          required: false
+          type: paragraph
+          variable: character_images
+      height: 134
+      id: '1780300000000'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1780300000000'
+          - script
+        model:
+          completion_params:
+            max_tokens: 4000
+            temperature: 0.3
+          mode: chat
+          name: qwen-max
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: system-prompt
+          role: system
+          text: "你是一个专业的短剧分镜规划师，擅长将剧本转化为即梦AI视频生成用的分镜CSV表。\n\n【任务】\n1. 分析剧本结构，提取每个场景的关键镜头（每个场景2-3个分镜）\n\
+            2. 为每个镜头生成即梦AI视频生成用的英文prompt（画面感强、视觉描述为主）\n3. 严格输出CSV格式，不要任何额外说明\n\n【输出格式\
+            \ - 严格遵守】\n- 第一行为表头，用逗号分隔\n- 每行一个分镜\n- prompt列的内容必须用双引号 \" 包裹（因为prompt内部包含逗号）\n\
+            - 不要输出 ```csv 或 ``` 等代码块标记\n- 直接输出纯CSV文本\n\n表头：\nprompt,remark,times,aspectRatio,duration,size,imageUrl,remixTargetId\n\
+            \n【固定风格前缀 - 必须纯英文】\n每个prompt必须以以下文本开头（一字不差）：\nJapanese Anime Style, 2D,\
+            \ Flat Coloring, Highly Detailed Background, Makoto Shinkai Lighting,\
+            \ High-Quality Anime Production, hand-drawn anime, no 3D rendering, anime\
+            \ style, no bgm, Chinese dialogue, no subtitles,\n\n【角色处理规则】\n1. 角色图片输入格式为JSON：{\"\
+            角色名\": \"图片URL\"}\n2. 如果镜头中有角色出场：\n   - 在prompt中用英文描述角色外貌特征，如 \"a young\
+            \ woman with long black hair (Yuxun Ge)\"\n   - 将该角色对应的图片URL填入 imageUrl\
+            \ 列\n   - 严禁在prompt中出现任何URL\n   - 严禁在prompt中出现\"登场角色\"、\"角色名\"等中文标注\n\
+            3. 如果镜头中没有角色出场，imageUrl 列留空\n\n【画面描述要求】\n- 用视觉化语言描述：光线、角度、动作、表情、环境细节\n\
+            - 避免抽象说明，多用具体画面元素\n- 描述顺序：场景环境 → 角色动作/表情 → 氛围光影\n\n【分镜时长】\n- 普通镜头：5秒\n\
+            - 关键转折/情绪爆发：8-10秒\n\n【Negative Prompt - 必须放在prompt内部】\n每个prompt末尾必须追加以下文本（作为prompt的一部分，放在双引号内）：\n\
+            \ --no [3D, low quality, blur, distortion, bad anatomy, grunge, noise,\
+            \ plastic skin, over-sharpening, floating glow, subtitles, bgm, night,\
+            \ chaotic environment, text, watermark, action cut abruptly, clipping]\n\
+            \n【字段值规范】\n- remark：填写幕/场景名称，如\"第一幕-重生惊魂\"、\"第二幕-真相浮现\"\n- times：固定填 1\n\
+            - aspectRatio：固定填 \"16:09\"（注意是09不是9）\n- duration：普通镜头填5，关键场景填8或10\n-\
+            \ size：固定填 \"large\"\n- imageUrl：有角色出场时填对应URL，无角色时留空\n- remixTargetId：固定留空\n\
+            \n【引号处理】\nprompt中如果出现时间、对话等需要引号的内容，使用单引号 ' 代替双引号 \"，避免CSV解析错误。\n\n【剧本】\n\
+            {{#1780300000000.script#}}\n\n【角色图片】\n{{#1780300000000.character_images#}}"
+        - id: user-prompt
+          role: user
+          text: 请分析以上剧本，生成CSV格式的分镜表。只输出CSV内容，不要任何额外说明。
+        selected: false
+        title: 分镜规划LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1780300000001'
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import csv\nimport io\n\ndef main(csv_text: str) -> dict:\n    result\
+          \ = {\n        \"csv_content\": \"\",\n        \"error\": \"\"\n    }\n\
+          \    \n    try:\n        cleaned = csv_text.replace('```csv', '').replace('```',\
+          \ '').strip()\n        lines = cleaned.split('\\n')\n        if len(lines)\
+          \ < 2:\n            result[\"error\"] = \"CSV格式错误：行数不足\"\n            return\
+          \ result\n        header = lines[0].lower()\n        if 'prompt' not in\
+          \ header:\n            result[\"error\"] = \"CSV格式错误：缺少prompt列\"\n     \
+          \       return result\n        result[\"csv_content\"] = cleaned\n     \
+          \   return result\n    except Exception as e:\n        result[\"error\"\
+          ] = f\"CSV处理错误: {str(e)}\"\n        return result\n"
+        code_language: python3
+        desc: 验证并格式化CSV输出
+        outputs:
+          csv_content:
+            children: null
+            type: string
+          error:
+            children: null
+            type: string
+        selected: false
+        title: CSV格式化
+        type: code
+        variables:
+        - value_selector:
+          - '1780300000001'
+          - text
+          value_type: string
+          variable: csv_text
+      height: 79
+      id: '1780300000002'
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1780300000002'
+          - csv_content
+          variable: csv_content
+        - value_selector:
+          - '1780300000002'
+          - error
+          variable: error
+        selected: false
+        title: 结束
+        type: end
+      height: 113
+      id: '1780300000003'
+      position:
+        x: 980
+        y: 282
+      positionAbsolute:
+        x: 980
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -208.52304072234654
+      y: 164.46497111811513
+      zoom: 0.757858283255199
+  rag_pipeline_variables: []

@@ -1,0 +1,151 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: agent-chat
+  name: AIGC漫剧导演Agent
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.1.5@f787917088219dc4e74548419a79f6f542bf1eed5043e3c6684ff8e077fd79c6
+    version: null
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 10
+    prompt: null
+    strategy: function_call
+    tools:
+    - enabled: true
+      notAuthor: false
+      provider_id: 773859a7-d50f-4c4b-8814-d433feae1b00
+      provider_name: 分镜规划Agent
+      provider_type: workflow
+      tool_label: 分镜规划Agent
+      tool_name: storyboard_planning_agent
+      tool_parameters:
+        character_images: ''
+        script: ''
+      type: workflow
+    - enabled: true
+      notAuthor: false
+      provider_id: 15a7618c-2a8b-48be-84ce-5a014d4abdb3
+      provider_name: 后期剪辑Agent
+      provider_type: workflow
+      tool_label: 后期剪辑Agent
+      tool_name: video_editing_agent
+      tool_parameters:
+        dialogues: ''
+        output_name: final_story_v1
+        video_urls: null
+      type: workflow
+    - enabled: true
+      notAuthor: false
+      provider_id: f7177ec1-03a7-44fc-92d3-6c1e927139c4
+      provider_name: 角色设计Agent
+      provider_type: workflow
+      tool_label: 角色设计Agent
+      tool_name: character_design_agent
+      tool_parameters:
+        script: ''
+      type: workflow
+    - enabled: true
+      notAuthor: false
+      provider_id: e1b18ec1-54c5-4f80-9a83-36776749cbf5
+      provider_name: 视频生成Agent
+      provider_type: workflow
+      tool_label: 视频生成Agent
+      tool_name: generate_video_clips
+      tool_parameters:
+        aspect_ratio: '16:9'
+        csv_content: ''
+      type: workflow
+  annotation_reply:
+    enabled: false
+  chat_prompt_config:
+    prompt:
+    - role: system
+      text: ''
+  completion_prompt_config:
+    conversation_histories_role:
+      assistant_prefix: ''
+      user_prefix: ''
+    prompt:
+      text: ''
+  dataset_configs:
+    datasets:
+      datasets: []
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: kimi-k2.6
+    provider: langgenius/moonshot/moonshot
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: "你是\"AIGC漫剧导演Agent\"，负责将用户输入的剧本转化为完整的漫剧视频。\n\n## 你的团队成员（子工作流工具）\n\n\
+    1. 【角色设计Agent】 - 当用户输入剧本时调用，提取角色信息并生成立绘图\n   - 工具调用名称：character_design_agent\n\
+    \   - 输入：script（完整剧本文本）\n   - 输出：image_url（角色立绘URL列表）、character_info（角色信息JSON）\n\
+    \n2. 【分镜规划Agent】 - 当角色设计完成且用户确认后调用\n   - 工具调用名称：storyboard_planning_agent\n  \
+    \ - 输入：script（剧本内容）、character_images（角色图片URL映射JSON）\n   - 输出：csv_content（CSV格式分镜表）\n\
+    \n3. 【视频生成Agent】 - 当分镜CSV确认后调用\n   - 工具调用名称：generate_video_clips\n   - 输入：csv_content（分镜CSV内容）、aspect_ratio（视频宽高比，默认16:9）\n\
+    \   - 输出：video_urls（视频片段URL列表）、clip_count（片段数量）\n\n4. 【后期剪辑Agent】 - 当所有视频片段生成完毕后调用\n\
+    \   - 工具调用名称：video_editing_agent\n   - 输入：video_urls（视频URL列表）、dialogues（对话时间轴JSON）、output_name（输出名称）\n\
+    \   - 输出：final_video（成品视频URL）、message（剪辑报告）\n\n## 工作原则\n\n1. **严格按顺序执行**：角色设计\
+    \ → 分镜规划 → 视频生成 → 后期剪辑\n2. **关键节点必须暂停等待用户确认**：\n   - 角色立绘生成后 → 展示图片，问用户是否满意\n\
+    \   - 分镜CSV生成后 → 展示预览，问用户是否确认\n   - 视频片段生成后 → 告知消耗额度，问是否继续剪辑\n3. **额度管理**：视频生成前提醒用户即梦免费额度（50秒/月），计算预计消耗\n\
+    4. **后期剪辑说明**：后期剪辑Agent采用高保真Mock模式，直接返回已合成的精美成片\n\n## 输出格式\n\n每次调用工具后，向用户汇报当前进度：\n\
+    - ✅ 已完成：xxx\n- ⏳ 下一步：xxx\n- ⚠️ 需要确认：xxx\n\n## 特别注意\n\n- 调用工具时必须使用正确的工具调用名称\n-\
+    \ 每个步骤完成后必须等待用户确认才能进入下一步\n- 不要跳过任何步骤，不要同时调用多个工具"
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    config: {}
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.6.0

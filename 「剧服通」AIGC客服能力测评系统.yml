@@ -1,0 +1,1990 @@
+app:
+  description: '这是基于万兴剧场真实业务场景设计的客服测评系统，覆盖AIGC内容生产全流程。系统通过5轮对话测试客服的专业度和情绪管理能力，评分基于RAG知识库，确保标准统一。
+
+    '
+  icon: heart_decoration
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 「剧服通」AIGC客服能力测评系统
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.41@5e9026df7d8449ebacf5661f0ab286331085605f34fab37dfdf43d19b9b5e363
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/supabase:0.1.3@4b20754e3bbd5bcc538ed967b0077162f09db364186dec498516a211cafa0d5b
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 780ca37b-ab56-4f7b-ac5f-2c14eb6aadfd
+    name: topics
+    selector:
+    - conversation
+    - topics
+    value:
+    - '[]'
+    value_type: array[string]
+  - description: ''
+    id: a80ba4ed-f667-40b8-aa24-2f262f349441
+    name: tests
+    selector:
+    - conversation
+    - tests
+    value:
+    - '[]'
+    value_type: array[string]
+  - description: 对话次数记录
+    id: cb54643a-baed-4111-a3ec-425fce8ded75
+    name: round
+    selector:
+    - conversation
+    - round
+    value: 0
+    value_type: integer
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: '🎬 欢迎来到AIGC客服能力测评！
+
+      点击下方开始测试或输入"开始测试"。
+
+      测评共5题，模拟真实AIGC内容平台用户咨询场景
+
+      每轮答题后给出专业度+服务态度双维度评分
+
+      全部完成后生成综合评价与榜单排名
+
+      测评仅在当前窗口有效。如需重新测试，请开启新窗口。'
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - 开始测试
+    - 查看榜单
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1761303787968-source-1761315662716-target
+      source: '1761303787968'
+      sourceHandle: source
+      target: '1761315662716'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1761315662716-bd848ec1-92fe-47e0-9270-c7842eb3a38f-1761315941558-target
+      source: '1761315662716'
+      sourceHandle: bd848ec1-92fe-47e0-9270-c7842eb3a38f
+      target: '1761315941558'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1761316030328-source-1761316086428-target
+      source: '1761316030328'
+      sourceHandle: source
+      target: '1761316086428'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1761316030328-source-1761316788149-target
+      source: '1761316030328'
+      sourceHandle: source
+      target: '1761316788149'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1761316788149-source-1761316911228-target
+      source: '1761316788149'
+      sourceHandle: source
+      target: '1761316911228'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1761317099795-source-1761316030328-target
+      source: '1761317099795'
+      sourceHandle: source
+      target: '1761316030328'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: template-transform
+      id: 1761315941558-source-1761317260583-target
+      source: '1761315941558'
+      sourceHandle: source
+      target: '1761317260583'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: knowledge-retrieval
+      id: 1761317260583-source-1761317099795-target
+      source: '1761317260583'
+      sourceHandle: source
+      target: '1761317099795'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: template-transform
+      id: 1761317391866-source-1761317421924-target
+      source: '1761317391866'
+      sourceHandle: source
+      target: '1761317421924'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1761317421924-source-answer-target
+      source: '1761317421924'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1761317783401-source-1761316148198-target
+      source: '1761317783401'
+      sourceHandle: source
+      target: '1761316148198'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1761315662716-false-1761318013521-target
+      source: '1761315662716'
+      sourceHandle: 'false'
+      target: '1761318013521'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1761318227427-source-1761318476654-target
+      source: '1761318227427'
+      sourceHandle: source
+      target: '1761318476654'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: answer
+        targetType: if-else
+      id: 1761316086428-source-1761362172820-target
+      source: '1761316086428'
+      sourceHandle: source
+      target: '1761362172820'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1761362172820-true-1761317783401-target
+      source: '1761362172820'
+      sourceHandle: 'true'
+      target: '1761317783401'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1761362172820-false-1761362231485-target
+      source: '1761362172820'
+      sourceHandle: 'false'
+      target: '1761362231485'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1761315662716-e0f00782-2662-4021-9be9-4a18834b3ff1-1761385066051-target
+      source: '1761315662716'
+      sourceHandle: e0f00782-2662-4021-9be9-4a18834b3ff1
+      target: '1761385066051'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1761385066051-source-1761318227427-target
+      source: '1761385066051'
+      sourceHandle: source
+      target: '1761318227427'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1761318227427-source-1761385112911-target
+      source: '1761318227427'
+      sourceHandle: source
+      target: '1761385112911'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1761315662716-e2ff519c-99de-475d-9281-58d4c68029bc-1761385160796-target
+      source: '1761315662716'
+      sourceHandle: e2ff519c-99de-475d-9281-58d4c68029bc
+      target: '1761385160796'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1761385160796-source-1761385268108-target
+      source: '1761385160796'
+      sourceHandle: source
+      target: '1761385268108'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1761315662716-true-1761315982055-target
+      source: '1761315662716'
+      sourceHandle: 'true'
+      target: '1761315982055'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: tool
+      id: 1761315982055-source-1761390906117-target
+      source: '1761315982055'
+      sourceHandle: source
+      target: '1761390906117'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1761390906117-source-1761391239784-target
+      source: '1761390906117'
+      sourceHandle: source
+      target: '1761391239784'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1761390906117-fail-branch-1761315702874-target
+      source: '1761390906117'
+      sourceHandle: fail-branch
+      target: '1761315702874'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1761391239784-source-1761391544238-target
+      source: '1761391239784'
+      sourceHandle: source
+      target: '1761391544238'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1761315702874-source-1761391544238-target
+      source: '1761315702874'
+      sourceHandle: source
+      target: '1761391544238'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: assigner
+      id: 1761391544238-source-1761317391866-target
+      source: '1761391544238'
+      sourceHandle: source
+      target: '1761317391866'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1761315662716-8c2a15bf-0a48-463e-b881-ffe5c6d3ff39-1761391650276-target
+      source: '1761315662716'
+      sourceHandle: 8c2a15bf-0a48-463e-b881-ffe5c6d3ff39
+      target: '1761391650276'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1761391650276-source-1761392804332-target
+      source: '1761391650276'
+      sourceHandle: source
+      target: '1761392804332'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1761392804332-source-1761393186429-target
+      source: '1761392804332'
+      sourceHandle: source
+      target: '1761393186429'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: answer
+        targetType: code
+      id: 1761318476654-source-1780043586962-target
+      source: '1761318476654'
+      sourceHandle: source
+      target: '1780043586962'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1780043586962-source-9999999999999-target
+      source: '1780043586962'
+      sourceHandle: source
+      target: '9999999999999'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 9999999999999-source-1761390562605-target
+      source: '9999999999999'
+      sourceHandle: source
+      target: '1761390562605'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 输入姓名
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: name
+        - default: ''
+          hint: ''
+          label: 输入工号
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: id
+      height: 134
+      id: '1761303787968'
+      position:
+        x: -273.1348067006611
+        y: 488.1462661297808
+      positionAbsolute:
+        x: -273.1348067006611
+        y: 488.1462661297808
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '本轮测试一共 5 个题目，请逐一作答。
+
+          第1题：
+
+          {{#1761317421924.output#}}'
+        selected: false
+        title: 输出第一题
+        type: answer
+        variables: []
+      height: 134
+      id: answer
+      position:
+        x: 2707.6122010158947
+        y: 282
+      positionAbsolute:
+        x: 2707.6122010158947
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: be2f73d1-103e-4de3-8a79-52f3ee6b7cf4
+            value: 开始测试
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          - comparison_operator: '='
+            id: d48e8cac-85ba-4b2b-a53c-e89b65b95491
+            value: '0'
+            varType: number
+            variable_selector:
+            - conversation
+            - round
+          id: 'true'
+          logical_operator: and
+        - case_id: bd848ec1-92fe-47e0-9270-c7842eb3a38f
+          conditions:
+          - comparison_operator: ≥
+            id: 8107a940-96d4-4414-a39d-c1fe73cb894a
+            value: '1'
+            varType: number
+            variable_selector:
+            - conversation
+            - round
+          - comparison_operator: ≤
+            id: 0411775c-fe8e-4f6a-a216-93b20040bd6a
+            value: '5'
+            varType: number
+            variable_selector:
+            - conversation
+            - round
+          id: bd848ec1-92fe-47e0-9270-c7842eb3a38f
+          logical_operator: and
+        - case_id: e0f00782-2662-4021-9be9-4a18834b3ff1
+          conditions:
+          - comparison_operator: '='
+            id: 2ba0106d-a107-4fc7-a7ab-907b683ef789
+            value: '6'
+            varType: number
+            variable_selector:
+            - conversation
+            - round
+          id: e0f00782-2662-4021-9be9-4a18834b3ff1
+          logical_operator: and
+        - case_id: e2ff519c-99de-475d-9281-58d4c68029bc
+          conditions:
+          - comparison_operator: '>'
+            id: 41aae8bc-c7a8-4442-b0a5-b95c30c44a1f
+            value: '6'
+            varType: number
+            variable_selector:
+            - conversation
+            - round
+          id: e2ff519c-99de-475d-9281-58d4c68029bc
+          logical_operator: and
+        - case_id: 8c2a15bf-0a48-463e-b881-ffe5c6d3ff39
+          conditions:
+          - comparison_operator: is
+            id: 67c37ecd-4290-4071-a537-69625cc0cac8
+            value: 查看榜单
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 8c2a15bf-0a48-463e-b881-ffe5c6d3ff39
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 367
+      id: '1761315662716'
+      position:
+        x: 77.11631905766069
+        y: 487.91767067006896
+      positionAbsolute:
+        x: 77.11631905766069
+        y: 487.91767067006896
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import random\n\ndef main() -> dict:\n    qas = [\"如何在AI训练平台上创建一个新的标注任务？\"\
+          ,\"AI训练平台提供哪些数据上传方式？\",\"创建标注任务的完整步骤是什么？\",\"如果我想上传1000张图片用于标注任务，应该选择哪种上传方式？\"\
+          ,\"在创建标注任务时，如果标签使用中文会有什么影响？\",\"如何使用本地文件导入方式上传数据？\",\"如果我想上传1000张图片用于标注任务，应该选择哪种上传方式？\"\
+          ,\"追踪功能和插值功能有什么区别？\",\"插值标注时，如果有多组标签需要标注，应该如何操作？\",\"如何将数据集分享给班级内的所有人？\"\
+          ,\"如果microSD卡未成功挂载，应该如何处理？\",\"什么是训练集和测试集，它们之间有什么区别？\",\"如何将训练好的模型发布到模型库？\"\
+          ,\"如何查看已经完成训练的任务细节？\",\"如何进行基本的标注操作？\",\"如何进入标注台？\",\"插值标注时，如果有多组标签需要标注，应该如何操作？\"\
+          ,\"如果我想上传1000张图片用于标注任务，应该选择哪种上传方式？\",\"什么是追踪功能？如何使用？\",\"在创建标注任务时，如果标签使用中文会有什么影响？\"\
+          ]\n    result = random.sample(qas, 5)\n    return {'result': result}"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: array[string]
+        selected: false
+        title: 生成考试题
+        type: code
+        variables: []
+      height: 51
+      id: '1761315702874'
+      position:
+        x: 1147.9101436309725
+        y: 337.62762972524627
+      positionAbsolute:
+        x: 1147.9101436309725
+        y: 337.62762972524627
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - conversation
+          - round
+          write_mode: over-write
+        selected: false
+        title: 第2-5轮计数
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1761315941558'
+      position:
+        x: 488.6828402141949
+        y: 423.1669239428802
+      positionAbsolute:
+        x: 488.6828402141949
+        y: 423.1669239428802
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - conversation
+          - round
+          write_mode: over-write
+        selected: false
+        title: 第一轮计数
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1761315982055'
+      position:
+        x: 488.6828402141949
+        y: 247.38892235866263
+      positionAbsolute:
+        x: 488.6828402141949
+        y: 247.38892235866263
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1761317099795'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ca5e1b8d-48c6-45ed-a7db-1719ee4d443c
+          role: system
+          text: "你是一位AIGC内容平台（万兴剧场）的客服主管。请对客服人员在以下场景的回答进行双维度评分。\n\n【评分标准 - AIGC客服专用】\n\
+            \n专业度评分（0-100）：\n- 90-100：准确识别AIGC业务问题（如生成失败、角色一致性、Prompt优化等），给出具体排查步骤或操作指引，提及相关功能模块\n\
+            - 70-89：能识别问题类型，给出基本解决方向，但缺少细节或步骤\n- 50-69：回答相关但过于笼统，或只给出部分信息\n- 30-49：回答偏离或错误，缺乏AIGC业务理解\n\
+            - 0-29：完全错误、答非所问、或拒绝回答\n\n情绪度评分（0-100）：\n- 90-100：主动共情，使用安抚话术，表达理解和愿意帮助的态度\n\
+            - 70-89：语气友好，有基本礼貌，但共情不够深入\n- 50-69：中性语气，无明显情绪问题\n- 30-49：语气生硬、敷衍、或带有负面情绪\n\
+            - 0-29：冷漠、指责、或激怒用户\n\n【特别规则】\n1. AIGC客服允许\"初步判断+引导排查\"的回答模式，不必一次性给出所有可能原因\n\
+            2. 对于技术问题，提及具体功能模块（如\"分镜编辑页\"、\"Prompt优化器\"）可加分\n3. 对于情绪安抚题，必须有具体话术示例才能得高分\n\
+            4. 回答简短但核心信息正确，专业分不应低于50\n\n请严格按照以下 JSON 格式输出：\n{\n  \"category\": \"\
+            业务分类（如：生成故障/资产管理/Prompt教学/情绪安抚/产品咨询）\",\n  \"professional_score\": 分数,\n\
+            \  \"emotion_score\": 分数,\n  \"comment\": \"针对性的精简点评，指出1个优点+1个改进点\"\n}"
+        - id: a6a1ca26-bafc-429f-9cdb-ba414acff3c4
+          role: user
+          text: '考试题目：
+
+            <question>
+
+            {{#1761317260583.output#}}
+
+            </question>
+
+            员工回答：
+
+            <answer>
+
+            {{#sys.query#}}
+
+            </answer>
+
+            问题相关资料：
+
+            <context>
+
+            {{#context#}}
+
+            </context>'
+        selected: false
+        title: 题目评价
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1761316030328'
+      position:
+        x: 1446.6022116274075
+        y: 423.1669239428802
+      positionAbsolute:
+        x: 1446.6022116274075
+        y: 423.1669239428802
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1761316030328.text#}}'
+        selected: false
+        title: 每一道题的审批
+        type: answer
+        variables: []
+      height: 102
+      id: '1761316086428'
+      position:
+        x: 1807.6122010158947
+        y: 450.9848473301174
+      positionAbsolute:
+        x: 1807.6122010158947
+        y: 450.9848473301174
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '
+
+          ---
+
+
+          接下来回答第{{#conversation.round#}}题：
+
+          {{#1761317783401.output#}}'
+        selected: false
+        title: 输出第2-5题
+        type: answer
+        variables: []
+      height: 122
+      id: '1761316148198'
+      position:
+        x: 2846.7362101983754
+        y: 450.9848473301174
+      positionAbsolute:
+        x: 2846.7362101983754
+        y: 450.9848473301174
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\nimport re\n\ndef main(reviews, answer, round, topics):\n\
+          \    # 清理 LLM 输出中的 markdown 标记\n    cleaned = reviews.strip()\n    if cleaned.startswith(\"\
+          ```json\"):\n        cleaned = cleaned[7:]\n    if cleaned.startswith(\"\
+          ```\"):\n        cleaned = cleaned[3:]\n    if cleaned.endswith(\"```\"\
+          ):\n        cleaned = cleaned[:-3]\n    cleaned = cleaned.strip()\n    \n\
+          \    # 尝试解析 JSON 评分\n    try:\n        review_data = json.loads(cleaned)\n\
+          \        category = review_data.get(\"category\", \"业务咨询\")\n        professional_score\
+          \ = review_data.get(\"professional_score\", 35)\n        emotion_score =\
+          \ review_data.get(\"emotion_score\", 35)\n        comment = review_data.get(\"\
+          comment\", \"\")\n    except:\n        # 兜底：正则提取\n        cat_match = re.search(r'\"\
+          category\":\\s*\"([^\"]+)\"', cleaned)\n        prof_match = re.search(r'\"\
+          professional_score\":\\s*(\\d+)', cleaned)\n        emot_match = re.search(r'\"\
+          emotion_score\":\\s*(\\d+)', cleaned)\n        comment_match = re.search(r'\"\
+          comment\":\\s*\"([^\"]*)\"', cleaned)\n        \n        category = cat_match.group(1)\
+          \ if cat_match else \"业务咨询\"\n        professional_score = int(prof_match.group(1))\
+          \ if prof_match else 35\n        emotion_score = int(emot_match.group(1))\
+          \ if emot_match else 35\n        comment = comment_match.group(1) if comment_match\
+          \ else \"\"\n    \n    # 返回结构化 JSON 字符串，方便 data_aggregation 提取\n    result\
+          \ = {\n        \"question\": topics[round - 2] if round >= 2 and topics\
+          \ else \"\",\n        \"answer\": answer,\n        \"category\": category,\n\
+          \        \"professional_score\": professional_score,\n        \"emotion_score\"\
+          : emotion_score,\n        \"comment\": comment\n    }\n    \n    return\
+          \ {\"result\": json.dumps(result, ensure_ascii=False)}"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 合并回答结果
+        type: code
+        variables:
+        - value_selector:
+          - '1761316030328'
+          - text
+          value_type: string
+          variable: reviews
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: answer
+        - value_selector:
+          - conversation
+          - round
+          value_type: number
+          variable: round
+        - value_selector:
+          - conversation
+          - topics
+          value_type: array[string]
+          variable: topics
+      height: 51
+      id: '1761316788149'
+      position:
+        x: 1807.6122010158947
+        y: 615.5460918767483
+      positionAbsolute:
+        x: 1807.6122010158947
+        y: 615.5460918767483
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: variable
+          operation: append
+          value:
+          - '1761316788149'
+          - result
+          variable_selector:
+          - conversation
+          - tests
+          write_mode: over-write
+        selected: false
+        title: 保存回答结果
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1761316911228'
+      position:
+        x: 2202.753131072603
+        y: 615.5460918767483
+      positionAbsolute:
+        x: 2202.753131072603
+        y: 615.5460918767483
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - xtETVyuWOXjlnIea3KdEJcsd5y1Ng+peBx1RZ0QojasAEuxVXmJdHXOCs8nODmf7
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 3
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1761317260583'
+        - output
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1761317099795'
+      position:
+        x: 1147.9101436309725
+        y: 423.1669239428802
+      positionAbsolute:
+        x: 1147.9101436309725
+        y: 423.1669239428802
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        selected: false
+        template: '{{ topics[round-2] }}'
+        title: 读取题目
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - topics
+          value_type: array[string]
+          variable: topics
+        - value_selector:
+          - conversation
+          - round
+          value_type: number
+          variable: round
+      height: 51
+      id: '1761317260583'
+      position:
+        x: 847.9101436309724
+        y: 423.1669239428802
+      positionAbsolute:
+        x: 847.9101436309724
+        y: 423.1669239428802
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1761391544238'
+          - output
+          variable_selector:
+          - conversation
+          - topics
+          write_mode: over-write
+        selected: false
+        title: 保存题目
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1761317391866'
+      position:
+        x: 2052.775417527823
+        y: 233.34726103149734
+      positionAbsolute:
+        x: 2052.775417527823
+        y: 233.34726103149734
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        selected: false
+        template: '{{ topics[0] }}'
+        title: 输出第一题
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - topics
+          value_type: array[string]
+          variable: topics
+      height: 51
+      id: '1761317421924'
+      position:
+        x: 2346.6022116274075
+        y: 282
+      positionAbsolute:
+        x: 2346.6022116274075
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        selected: false
+        template: '{{ topics[round-1] }}'
+        title: 输出 2-5 题题目
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - topics
+          value_type: array[string]
+          variable: topics
+        - value_selector:
+          - conversation
+          - round
+          value_type: number
+          variable: round
+      height: 51
+      id: '1761317783401'
+      position:
+        x: 2546.6064246169876
+        y: 450.9848473301174
+      positionAbsolute:
+        x: 2546.6064246169876
+        y: 450.9848473301174
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 要想开始测试，点击开场白下方的`开始测试`或在对话框输入`开始测试`
+        selected: false
+        title: 不符合条件直接回复
+        type: answer
+        variables: []
+      height: 115
+      id: '1761318013521'
+      position:
+        x: 470.27959399176905
+        y: 1009.8478081776825
+      positionAbsolute:
+        x: 470.27959399176905
+        y: 1009.8478081776825
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 5412f8c2-e65d-442f-95f2-bf2dce355a32
+          role: system
+          text: "你是一位经验丰富、富有建设性且善于培养人才的万兴剧场（ReelMate）客服主管。\n\n你的任务是：基于员工本次5道题目的回答记录，给出**专业、客观、温暖且具有指导意义**的综合评价报告。\n\
+            \n### 输出要求（严格按照以下Markdown格式输出，不要添加额外说明）：\n\n## \U0001F3AF 总体评估\n（一句话总结本次测评整体表现，包含综合得分估算和核心特点）\n\
+            \n## \U0001F4CA 评分统计\n- **平均专业度**：XX/100\n- **平均服务态度**：XX/100  \n- **综合得分**：XX/100\
+            \ （专业度权重60% + 服务态度权重40%）\n\n## \U0001F31F 亮点表现\n（列出1-2个做得比较好的地方，具体指出哪一题及优点）\n\
+            \n## ⚠️ 需要提升的地方\n（客观列出2-3个最主要的问题，按重要性排序）\n\n## \U0001F4A1 具体改进建议与优秀示范\n\
+            针对主要问题，提供**可执行的改进方向**，并为每个主要问题**给出1条优秀回答示范**（话术示例）。\n\n## \U0001F4C8 个人成长建议\n\
+            给出2-3条针对性强、切实可行的后续提升建议（例如：学习特定功能、练习话术模板、阅读产品文档等）。\n\n## ✨ 鼓励与下一步\n用积极、温暖的语气进行鼓励，并邀请员工继续讨论具体题目的改进方案。\n\
+            \n---\n\n语气要求：\n- 像资深主管做1对1辅导：肯定努力、指出不足、给出方向、温暖鼓励。\n- 建设性优先：多用“建议…”、“可以尝试…”、“优秀做法是…”。\n\
+            - 专业且有人情味，避免单纯批评。"
+        - id: 4d469796-3b54-4c47-ad2f-d1524b7091b2
+          role: user
+          text: '员工测评结果记录如下：
+
+            {{#conversation.tests#}}'
+        selected: false
+        title: 综合评价打分
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1761318227427'
+      position:
+        x: 847.9101436309724
+        y: 562.442221222579
+      positionAbsolute:
+        x: 847.9101436309724
+        y: 562.442221222579
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1761318227427.text#}}'
+        selected: false
+        title: 输出模型评价
+        type: answer
+        variables: []
+      height: 102
+      id: '1761318476654'
+      position:
+        x: 1446.6022116274075
+        y: 578.8245543185242
+      positionAbsolute:
+        x: 1446.6022116274075
+        y: 578.8245543185242
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: ≠
+            id: bcc73419-a90b-4f1b-938d-abfb30595b99
+            value: '6'
+            varType: number
+            variable_selector:
+            - conversation
+            - round
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 验证是不是最后一题
+        type: if-else
+      height: 123
+      id: '1761362172820'
+      position:
+        x: 2202.753131072603
+        y: 450.9848473301174
+      positionAbsolute:
+        x: 2202.753131072603
+        y: 450.9848473301174
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '
+
+          ---
+
+
+          测评结束，输入任意内容查看测评结果并记录测评成绩。'
+        selected: false
+        title: 考试结束
+        type: answer
+        variables: []
+      height: 115
+      id: '1761362231485'
+      position:
+        x: 2546.6064246169876
+        y: 578.8245543185242
+      positionAbsolute:
+        x: 2546.6064246169876
+        y: 578.8245543185242
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - conversation
+          - round
+          write_mode: over-write
+        selected: false
+        title: 第6轮
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1761385066051'
+      position:
+        x: 488.6828402141949
+        y: 556.8028984112788
+      positionAbsolute:
+        x: 488.6828402141949
+        y: 556.8028984112788
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: variable
+          operation: append
+          value:
+          - '1761318227427'
+          - text
+          variable_selector:
+          - conversation
+          - tests
+          write_mode: over-write
+        selected: false
+        title: 综合评价追加到对话中
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1761385112911'
+      position:
+        x: 1446.6022116274075
+        y: 745.3547797860435
+      positionAbsolute:
+        x: 1446.6022116274075
+        y: 745.3547797860435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '用户对他测评结果的追问：
+
+            {{#sys.query#}}
+
+            用户的历史测评结果：
+
+            {{#conversation.tests#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 36e9d534-6e0a-4607-96cd-6c0c1b121d69
+          role: system
+          text: 与用户讨论他的测评结果，我会把他历史的数据分享给你
+        selected: false
+        title: 与用户讨论测评结果
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1761385160796'
+      position:
+        x: 497.28394668249734
+        y: 693.0545270875807
+      positionAbsolute:
+        x: 497.28394668249734
+        y: 693.0545270875807
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1761385160796.text#}}'
+        selected: false
+        title: 回复用户讨论的结果
+        type: answer
+        variables: []
+      height: 102
+      id: '1761385268108'
+      position:
+        x: 838.510687267659
+        y: 702.9455620180883
+      positionAbsolute:
+        x: 838.510687267659
+        y: 702.9455620180883
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The name of the table to insert into.
+            ja_JP: 挿入先のテーブル名。
+            pt_BR: The name of the table to insert into.
+            zh_Hans: The name of the table to insert into.
+          label:
+            en_US: Table Name
+            ja_JP: テーブル名
+            pt_BR: Table Name
+            zh_Hans: Table Name
+          llm_description: Provide the name of the table where you want to insert
+            a new row.
+          max: null
+          min: null
+          name: table
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Data for the new row as a JSON object.
+            ja_JP: 新しい行のデータ（JSON オブジェクト形式）。
+            pt_BR: Data for the new row as a JSON object.
+            zh_Hans: Data for the new row as a JSON object.
+          label:
+            en_US: Row Data
+            ja_JP: 行データ
+            pt_BR: Row Data
+            zh_Hans: Row Data
+          llm_description: Provide the data for the new row in JSON format.
+          max: null
+          min: null
+          name: data
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        params:
+          data: ''
+          table: ''
+        provider_id: langgenius/supabase/supabase
+        provider_name: langgenius/supabase/supabase
+        provider_type: builtin
+        selected: false
+        title: Create a Row
+        tool_configurations: {}
+        tool_description: Create a new row in a specified table in Supabase.
+        tool_label: Create a Row
+        tool_name: create_a_row
+        tool_node_version: '2'
+        tool_parameters:
+          data:
+            type: mixed
+            value: '{{#9999999999999.json_data#}}'
+          table:
+            type: mixed
+            value: exam_results
+        type: tool
+      height: 51
+      id: '1761390562605'
+      position:
+        x: 2382.28982768901
+        y: 745.3547797860435
+      positionAbsolute:
+        x: 2382.28982768901
+        y: 745.3547797860435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        error_strategy: fail-branch
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The name of the table to query.
+            ja_JP: クエリ対象のテーブル名。
+            pt_BR: The name of the table to query.
+            zh_Hans: The name of the table to query.
+          label:
+            en_US: Table Name
+            ja_JP: テーブル名
+            pt_BR: Table Name
+            zh_Hans: Table Name
+          llm_description: Provide the name of the table you want to query in Supabase.
+          max: null
+          min: null
+          name: table
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Maximum number of rows to return.
+            ja_JP: 返される最大行数。
+            pt_BR: Maximum number of rows to return.
+            zh_Hans: Maximum number of rows to return.
+          label:
+            en_US: Limit
+            ja_JP: 上限
+            pt_BR: Limit
+            zh_Hans: Limit
+          llm_description: Specify how many rows you want to retrieve. Default is
+            10.
+          max: null
+          min: null
+          name: limit
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional filter condition (e.g., 'status=active').
+            ja_JP: オプションのフィルター条件（例：'status=active'）。
+            pt_BR: Optional filter condition (e.g., 'status=active').
+            zh_Hans: Optional filter condition (e.g., 'status=active').
+          label:
+            en_US: Filter
+            ja_JP: フィルター
+            pt_BR: Filter
+            zh_Hans: Filter
+          llm_description: Provide a filter condition if needed. (e.g., 'status=active')
+          max: null
+          min: null
+          name: filter
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          filter: ''
+          limit: ''
+          table: ''
+        provider_id: langgenius/supabase/supabase
+        provider_name: langgenius/supabase/supabase
+        provider_type: builtin
+        selected: false
+        title: 获取考试题
+        tool_configurations: {}
+        tool_description: Get rows from a specified table in Supabase.
+        tool_label: Get Rows
+        tool_name: get_rows
+        tool_node_version: '2'
+        tool_parameters:
+          filter:
+            type: mixed
+            value: ''
+          limit:
+            type: constant
+            value: null
+          table:
+            type: mixed
+            value: exam_questions
+        type: tool
+      height: 87
+      id: '1761390906117'
+      position:
+        x: 838.510687267659
+        y: 247.38892235866263
+      positionAbsolute:
+        x: 838.510687267659
+        y: 247.38892235866263
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import random\nfrom typing import List, Dict\n\ndef main(questions:\
+          \ List[Dict]) -> Dict:\n    \"\"\"\n    从 Supabase 返回的 exam_questions 表中随机抽取5题\n\
+          \    \"\"\"\n    # questions 是 Supabase 返回的数组，每个元素是字典\n    # 格式：[{\"question\"\
+          : \"...\", \"category\": \"...\", ...}, {...}]\n    \n    if not questions\
+          \ or len(questions) == 0:\n        return {'result': []}\n    \n    # 提取所有题目文本\n\
+          \    all_questions = []\n    for item in questions:\n        # Supabase\
+          \ 返回的 item 结构是 {\"data\": [...]} 或直接用 item\n        # 先处理外层包装\n        if\
+          \ isinstance(item, dict):\n            # 如果 item 有 'data' 字段（Supabase 的\
+          \ json 列）\n            if 'data' in item and isinstance(item['data'], list):\n\
+          \                for sub_item in item['data']:\n                    if isinstance(sub_item,\
+          \ dict) and 'question' in sub_item:\n                        all_questions.append(sub_item['question'])\n\
+          \            # 如果 item 直接有 'question' 字段\n            elif 'question' in\
+          \ item:\n                all_questions.append(item['question'])\n    \n\
+          \    # 去重\n    all_questions = list(set(all_questions))\n    \n    # 随机抽5题\n\
+          \    if len(all_questions) >= 5:\n        selected = random.sample(all_questions,\
+          \ 5)\n    else:\n        selected = all_questions  # 如果不足5题，全取\n    \n \
+          \   return {'result': selected}"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: array[string]
+        selected: false
+        title: 生成考试题
+        type: code
+        variables:
+        - value_selector:
+          - '1761390906117'
+          - json
+          value_type: array[object]
+          variable: questions
+      height: 51
+      id: '1761391239784'
+      position:
+        x: 1147.9101436309725
+        y: 185.08551402202943
+      positionAbsolute:
+        x: 1147.9101436309725
+        y: 185.08551402202943
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        output_type: array[string]
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1761391239784'
+          - result
+        - - '1761315702874'
+          - result
+      height: 133
+      id: '1761391544238'
+      position:
+        x: 1446.6022116274075
+        y: 233.34726103149734
+      positionAbsolute:
+        x: 1446.6022116274075
+        y: 233.34726103149734
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The name of the table to query.
+            ja_JP: クエリ対象のテーブル名。
+            pt_BR: The name of the table to query.
+            zh_Hans: The name of the table to query.
+          label:
+            en_US: Table Name
+            ja_JP: テーブル名
+            pt_BR: Table Name
+            zh_Hans: Table Name
+          llm_description: Provide the name of the table you want to query in Supabase.
+          max: null
+          min: null
+          name: table
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Maximum number of rows to return.
+            ja_JP: 返される最大行数。
+            pt_BR: Maximum number of rows to return.
+            zh_Hans: Maximum number of rows to return.
+          label:
+            en_US: Limit
+            ja_JP: 上限
+            pt_BR: Limit
+            zh_Hans: Limit
+          llm_description: Specify how many rows you want to retrieve. Default is
+            10.
+          max: null
+          min: null
+          name: limit
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional filter condition (e.g., 'status=active').
+            ja_JP: オプションのフィルター条件（例：'status=active'）。
+            pt_BR: Optional filter condition (e.g., 'status=active').
+            zh_Hans: Optional filter condition (e.g., 'status=active').
+          label:
+            en_US: Filter
+            ja_JP: フィルター
+            pt_BR: Filter
+            zh_Hans: Filter
+          llm_description: Provide a filter condition if needed. (e.g., 'status=active')
+          max: null
+          min: null
+          name: filter
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          filter: ''
+          limit: ''
+          table: ''
+        provider_id: langgenius/supabase/supabase
+        provider_name: langgenius/supabase/supabase
+        provider_type: builtin
+        selected: false
+        title: 获取榜单
+        tool_configurations: {}
+        tool_description: Get rows from a specified table in Supabase.
+        tool_label: Get Rows
+        tool_name: get_rows
+        tool_node_version: '2'
+        tool_parameters:
+          filter:
+            type: mixed
+            value: ''
+          limit:
+            type: constant
+            value: null
+          table:
+            type: mixed
+            value: test_records
+        type: tool
+      height: 51
+      id: '1761391650276'
+      position:
+        x: 488.6828402141949
+        y: 855.1805949555352
+      positionAbsolute:
+        x: 488.6828402141949
+        y: 855.1805949555352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\nfrom collections import defaultdict\n\ndef main(ranks:\
+          \ list):\n    \"\"\"\n    对输入的 ranks 字符串（JSON 格式）按 employee_id 去重，保留 score\
+          \ 最高记录，\n    并按 score 降序拼接为指定 Markdown 表格字符串返回。\n    \"\"\"\n    data =\
+          \ ranks\n\n    # 展平所有 data 里的记录\n    records = []\n    for item in data:\n\
+          \        records.extend(item.get(\"data\", []))\n\n    # 按 employee_id 分组，保留\
+          \ score 最大的一条\n    best = {}\n    for rec in records:\n        eid = rec.get(\"\
+          employee_id\")\n        if eid is None:\n            continue\n        if\
+          \ eid not in best or rec.get(\"score\", 0) > best[eid].get(\"score\", 0):\n\
+          \            best[eid] = rec\n\n    # 按 score 降序排序\n    sorted_recs = sorted(best.values(),\
+          \ key=lambda x: x.get(\"score\", 0), reverse=True)\n\n    # 拼接 Markdown\
+          \ 表格\n    lines = [\"|工号|姓名|得分|\", \"|---|---|---|\"]\n    for rec in sorted_recs:\n\
+          \        lines.append(f\"|{rec.get('employee_id', '')}|{rec.get('employee_name',\
+          \ '')}|{rec.get('score', '')}|\")\n\n    result = \"\\n\".join(lines)\n\
+          \    return {\"result\": result}"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 榜单排序
+        type: code
+        variables:
+        - value_selector:
+          - '1761391650276'
+          - json
+          value_type: array[object]
+          variable: ranks
+      height: 51
+      id: '1761392804332'
+      position:
+        x: 838.510687267659
+        y: 855.1805949555352
+      positionAbsolute:
+        x: 838.510687267659
+        y: 855.1805949555352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1761392804332.result#}}'
+        selected: false
+        title: 发榜
+        type: answer
+        variables: []
+      height: 102
+      id: '1761393186429'
+      position:
+        x: 1147.9101436309725
+        y: 966.4400133679939
+      positionAbsolute:
+        x: 1147.9101436309725
+        y: 966.4400133679939
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\nimport re\n\ndef main(history_list: list, llm_summary:\
+          \ str) -> dict:\n    total_score = 0\n    avg_prof = 0\n    avg_emot = 0\n\
+          \    category_scores_str = \"{}\"\n    weak_categories = \"无\"\n    review_summary\
+          \ = str(llm_summary) if llm_summary else \"暂无评价\"\n    details_str = \"\
+          []\"\n\n    parsed_records = []\n    if isinstance(history_list, list):\n\
+          \        for item in history_list:\n            try:\n                if\
+          \ isinstance(item, str):\n                    item = item.strip()\n    \
+          \                if not item or item == \"[]\":\n                      \
+          \  continue\n                    parsed = json.loads(item)\n           \
+          \         if isinstance(parsed, dict) and \"professional_score\" in parsed\
+          \ and \"emotion_score\" in parsed:\n                        parsed_records.append(parsed)\n\
+          \                elif isinstance(item, dict):\n                    if \"\
+          professional_score\" in item and \"emotion_score\" in item:\n          \
+          \              parsed_records.append(item)\n            except:\n      \
+          \          pass\n\n    print(\"Debug: valid parsed_records length =\", len(parsed_records))\n\
+          \n    if parsed_records:\n        prof_scores = [r.get(\"professional_score\"\
+          , 0) for r in parsed_records]\n        emot_scores = [r.get(\"emotion_score\"\
+          , 0) for r in parsed_records]\n        avg_prof = sum(prof_scores) // len(prof_scores)\
+          \ if prof_scores else 0\n        avg_emot = sum(emot_scores) // len(emot_scores)\
+          \ if emot_scores else 0\n        total_score = avg_prof + avg_emot\n   \
+          \     details_str = json.dumps(parsed_records, ensure_ascii=False)\n\n \
+          \   try:\n        clean_summary = llm_summary.strip()\n        if clean_summary.startswith(\"\
+          ```json\"):\n            clean_summary = clean_summary.split(\"```json\"\
+          )[1].split(\"```\")[0].strip()\n        elif clean_summary.startswith(\"\
+          ```\"):\n            clean_summary = clean_summary.split(\"```\")[1].split(\"\
+          ```\")[0].strip()\n        data = json.loads(clean_summary)\n        total_score\
+          \ = int(data.get(\"total_score\", total_score))\n        avg_prof = int(data.get(\"\
+          professional_score\", avg_prof))\n        avg_emot = int(data.get(\"emotion_score\"\
+          , avg_emot))\n        cat_scores = data.get(\"category_scores\", {})\n \
+          \       category_scores_str = json.dumps(cat_scores, ensure_ascii=False)\n\
+          \        weak_categories = str(data.get(\"weak_categories\", \"无\"))\n \
+          \       review_summary = str(data.get(\"review_summary\", review_summary))\n\
+          \    except Exception as e:\n        score_match = re.search(r'综合得分[：:]\\\
+          s*(\\d+)', llm_summary)\n        if score_match:\n            total_score\
+          \ = int(score_match.group(1))\n        prof_match = re.search(r'专业评分\\s*(\\\
+          d+)', llm_summary)\n        if prof_match:\n            avg_prof = int(prof_match.group(1))\n\
+          \        emot_match = re.search(r'情绪评分\\s*(\\d+)', llm_summary)\n      \
+          \  if emot_match:\n            avg_emot = int(emot_match.group(1))\n   \
+          \     category_scores_str = json.dumps({\"综合\": total_score}, ensure_ascii=False)\n\
+          \n    return {\n        \"total_score\": total_score,\n        \"professional_score\"\
+          : avg_prof,\n        \"emotion_score\": avg_emot,\n        \"category_scores\"\
+          : category_scores_str,\n        \"weak_categories\": weak_categories,\n\
+          \        \"review_summary\": review_summary,\n        \"details\": details_str,\n\
+          \        \"result\": f\"总分{total_score}，专业{avg_prof}，情绪{avg_emot}\"\n  \
+          \  }"
+        code_language: python3
+        outputs:
+          category_scores:
+            children: null
+            type: string
+          details:
+            children: null
+            type: string
+          emotion_score:
+            children: null
+            type: number
+          professional_score:
+            children: null
+            type: number
+          result:
+            children: null
+            type: string
+          review_summary:
+            children: null
+            type: string
+          total_score:
+            children: null
+            type: number
+          weak_categories:
+            children: null
+            type: string
+        selected: false
+        title: data_aggregation
+        type: code
+        variables:
+        - value_selector:
+          - conversation
+          - tests
+          value_type: array[string]
+          variable: history_list
+        - value_selector:
+          - '1761318227427'
+          - text
+          value_type: string
+          variable: llm_summary
+      height: 51
+      id: '1780043586962'
+      position:
+        x: 1748.6022116274075
+        y: 739.1193698977889
+      positionAbsolute:
+        x: 1748.6022116274075
+        y: 739.1193698977889
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\n\ndef main(employee_name: str, employee_id: str, total_score:\
+          \ int, \n         professional_score: int, emotion_score: int, category_scores:\
+          \ str,\n         weak_categories: str, review_summary: str) -> dict:\n \
+          \   \"\"\"\n    生成合法的 JSON 字符串，用于 Create a Row\n    对 review_summary 进行清理，避免破坏\
+          \ JSON 格式\n    \"\"\"\n    # 清理 review_summary：替换换行符、引号等\n    cleaned_summary\
+          \ = review_summary\n    if cleaned_summary:\n        # 替换换行符为空格\n      \
+          \  cleaned_summary = cleaned_summary.replace(\"\\n\", \" \").replace(\"\\\
+          r\", \" \")\n        # 替换双引号为中文引号，避免 JSON 冲突\n        cleaned_summary =\
+          \ cleaned_summary.replace('\"', \"'\")\n        # 截断到 500 字符，避免过长\n    \
+          \    cleaned_summary = cleaned_summary[:500]\n    else:\n        cleaned_summary\
+          \ = \"暂无评价\"\n\n    # 确保 category_scores 是字符串\n    if not category_scores:\n\
+          \        category_scores = \"{}\"\n\n    # 组装数据字典\n    row_data = {\n  \
+          \      \"employee_name\": employee_name,\n        \"employee_id\": employee_id,\n\
+          \        \"total_score\": total_score,\n        \"professional_score\":\
+          \ professional_score,\n        \"emotion_score\": emotion_score,\n     \
+          \   \"category_scores\": category_scores,\n        \"weak_categories\":\
+          \ weak_categories,\n        \"review_summary\": cleaned_summary\n    }\n\
+          \n    # 生成 JSON 字符串（确保合法）\n    json_str = json.dumps(row_data, ensure_ascii=False)\n\
+          \n    return {\n        \"json_data\": json_str,\n        \"employee_name\"\
+          : employee_name,\n        \"employee_id\": employee_id\n    }"
+        code_language: python3
+        outputs:
+          employee_id:
+            children: null
+            type: string
+          employee_name:
+            children: null
+            type: string
+          json_data:
+            children: null
+            type: string
+        selected: false
+        title: 格式化数据
+        type: code
+        variables:
+        - value_selector:
+          - '1761303787968'
+          - name
+          value_type: string
+          variable: employee_name
+        - value_selector:
+          - '1761303787968'
+          - id
+          value_type: string
+          variable: employee_id
+        - value_selector:
+          - '1780043586962'
+          - total_score
+          value_type: number
+          variable: total_score
+        - value_selector:
+          - '1780043586962'
+          - professional_score
+          value_type: number
+          variable: professional_score
+        - value_selector:
+          - '1780043586962'
+          - emotion_score
+          value_type: number
+          variable: emotion_score
+        - value_selector:
+          - '1780043586962'
+          - category_scores
+          value_type: string
+          variable: category_scores
+        - value_selector:
+          - '1780043586962'
+          - weak_categories
+          value_type: string
+          variable: weak_categories
+        - value_selector:
+          - '1780043586962'
+          - review_summary
+          value_type: string
+          variable: review_summary
+      height: 51
+      id: '9999999999999'
+      position:
+        x: 2100
+        y: 745
+      positionAbsolute:
+        x: 2100
+        y: 745
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 1.6760981559635866
+      y: -69.43172148179639
+      zoom: 0.6504869133642175
+  rag_pipeline_variables: []

@@ -1,0 +1,744 @@
+app:
+  description: 'description: 专注产研（PM/RD）方向的智能简历审计工具。基于 C-Level 评委视角，通过多模型编排与大厂能力知识库，深度诊断简历中的“价值真空”并提供
+    A/B 双版本重构方案。'
+  icon: dart
+  icon_background: '#FEF7C3'
+  icon_type: emoji
+  mode: advanced-chat
+  name: ReviewMaster-Pro / 基于多模型编排的简历质检系统
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.41@5e9026df7d8449ebacf5661f0ab286331085605f34fab37dfdf43d19b9b5e363
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1780143496013-false-llm-target
+      source: '1780143496013'
+      sourceHandle: 'false'
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1780144843820-source-answer-target
+      source: '1780144843820'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1780145433422-source-1780143496013-target
+      source: '1780145433422'
+      sourceHandle: source
+      target: '1780143496013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: llm-source-1780146990310-target
+      source: llm
+      sourceHandle: source
+      target: '1780146990310'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1780146990310-source-1780147101969-target
+      source: '1780146990310'
+      sourceHandle: source
+      target: '1780147101969'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1780143496013-false-1780146952031-target
+      source: '1780143496013'
+      sourceHandle: 'false'
+      target: '1780146952031'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1780147101969-source-1780147620952-target
+      source: '1780147101969'
+      sourceHandle: source
+      target: '1780147620952'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1780147620952-false-1780144445503-target
+      source: '1780147620952'
+      sourceHandle: 'false'
+      target: '1780144445503'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1780143496013-true-17801478664400-target
+      source: '1780143496013'
+      sourceHandle: 'true'
+      target: '17801478664400'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1780146952031-source-1780146990310-target
+      source: '1780146952031'
+      sourceHandle: source
+      target: '1780146990310'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1780147620952-true-1780144843820-target
+      source: '1780147620952'
+      sourceHandle: 'true'
+      target: '1780144843820'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1757559424732-source-1780145433422-target
+      source: '1757559424732'
+      sourceHandle: source
+      target: '1780145433422'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 开始
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 100
+      id: '1757559424732'
+      position:
+        x: 0
+        y: 134
+      positionAbsolute:
+        x: 0
+        y: 134
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ba6656f8-ccae-4c3a-bf71-5708e75c7265
+          role: system
+          text: '# 角色：岗位匹配度分析师
+
+            你是资深校招HR，专注Java后端方向，擅长判断应届生简历与岗位的匹配度。
+
+
+            ## 输出格式（严格遵守）
+
+
+            【JD 匹配度评分】：X/100 分
+
+            【匹配亮点】（列出 3 个核心点）：
+
+            ...
+
+            ...
+
+            ...
+
+            【关键差距】（列出 3 个核心点）：
+
+            ...
+
+            ...
+
+            ...
+
+            【优化优先级建议】：
+
+            P0（立即补）：...
+
+            P1（建议补）：...
+
+            P2（加分项）：...
+
+
+            ## 评分标准（应届生Java后端）
+
+            - 90-100：技术栈全覆盖，项目有量化成果，直接推面试；
+
+            - 70-89：技术栈匹配，项目无量化但有落地；
+
+            - 50-69：技术栈部分匹配，项目描述空泛；
+
+            - <50：技术栈不匹配，无核心项目。'
+        - id: f0a7cc01-a01b-4ebb-b98b-17abaae40f1e
+          role: user
+          text: '<user_resume>
+
+            {{#1780145433422.result#}}
+
+            </user_resume>
+
+
+            <job_description>
+
+            {{#sys.query#}}
+
+            </job_description>
+
+
+            请基于应届生Java后端岗位标准，给出匹配度分析。
+
+            '
+        selected: false
+        title: JD 匹配评分
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: 1344
+        y: 3
+      positionAbsolute:
+        x: 1344
+        y: 3
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1780146990310.text#}}
+
+
+          {{#1780144843820.text#}}'
+        desc: ''
+        selected: false
+        title: 最终输出
+        type: answer
+        variables: []
+      height: 121
+      id: answer
+      position:
+        x: 3089
+        y: 194
+      positionAbsolute:
+        x: 3089
+        y: 194
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 4d8c8a09-43f5-4a63-92fd-fdfd427c8ff9
+            value: 'true'
+            varType: string
+            variable_selector:
+            - '1780145433422'
+            - content_too_empty
+          id: 'true'
+          logical_operator: or
+        selected: false
+        title: 质量初筛
+        type: if-else
+      height: 147
+      id: '1780143496013'
+      position:
+        x: 983
+        y: 110
+      positionAbsolute:
+        x: 983
+        y: 110
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: ⚠️ 生成结果格式异常，请重新输入或简化简历内容后重试。
+        selected: false
+        title: 格式错误提示
+        type: answer
+        variables: []
+      height: 115
+      id: '1780144445503'
+      position:
+        x: 2748
+        y: 16
+      positionAbsolute:
+        x: 2748
+        y: 16
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-plus-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 1cad8e0a-22f4-441d-b977-465798dcd814
+          role: system
+          text: '# 角色：用户反馈收集员
+
+            基于简历优化结果，生成一个简洁的反馈请求。
+
+
+            ## 输出格式
+
+            以上就是完整的简历优化报告！
+
+            🎯 请为本次优化打分（1-5星）：
+
+            ⭐ 1星：完全没用，离题万里
+
+            ⭐⭐ 2星：有些帮助，但不够深入
+
+            ⭐⭐⭐ 3星：基本满足需求
+
+            ⭐⭐⭐⭐ 4星：很有帮助，会按建议修改
+
+            ⭐⭐⭐⭐⭐ 5星：非常精准，超出预期！
+
+            💡 如果你打3星及以下，请告诉我哪里不满意，我会针对性补充：
+
+            [ ] 技术深度不够
+
+            [ ] 量化数据缺失
+
+            [ ] 与我的目标岗位不匹配
+
+            [ ] 其他：______
+
+            '
+        selected: false
+        title: 用户打分和反馈请求
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1780144843820'
+      position:
+        x: 2748
+        y: 211
+      positionAbsolute:
+        x: 2748
+        y: 211
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "def main(query: str) -> dict:\n    # 此时的 query 已经被我们重定向绑定为了 LLM 提取出的简历全文\n\
+          \    text = query or \"\"\n    \n    char_count = len(text)\n    has_project\
+          \ = \"项目\" in text or \"project\" in text.lower() or \"系统\" in text\n  \
+          \  has_experience = \"经验\" in text or \"实习\" in text or \"工作\" in text or\
+          \ \"经历\" in text\n    \n    # 门槛微调：解析出来的真实简历文本一般都大于 120 字\n    too_short\
+          \ = char_count < 120\n    no_content = not (has_project or has_experience)\n\
+          \    content_too_empty = too_short or no_content\n    \n    return {\n \
+          \       \"result\": text.strip(),\n        \"content_too_empty\": \"true\"\
+          \ if content_too_empty else \"false\"\n    }"
+        code_language: python3
+        outputs:
+          content_too_empty:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 51
+      id: '1780145433422'
+      position:
+        x: 642
+        y: 158
+      positionAbsolute:
+        x: 642
+        y: 158
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - RAwvlkeMH/8wRHiaMgrEEl9uhsFoN2b4y49KrjlC9YjWsioUpsDRfBuNWOeYMRoK
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank-v2
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.5
+          top_k: 3
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1780145433422'
+        - result
+        retrieval_mode: multiple
+        selected: false
+        title: 知识库检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1780146952031'
+      position:
+        x: 1344
+        y: 170
+      positionAbsolute:
+        x: 1344
+        y: 170
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-plus-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: a4fd6794-b173-4594-ba32-57e8f8d746a4
+          role: system
+          text: '# 角色：大厂产研简历优化教练
+
+            你是一位顶尖科技公司（FAANG级别）的产品技术招聘委员会核心成员。
+
+
+            ## 核心原则
+
+            1. 内容为王，格式为辅
+
+            2. "所以呢？"拷问法：每句描述必须回答"带来了什么价值"
+
+            3. 分级批判：根据候选人级别调整标准
+
+            4. "批判-解析-建议"三位一体模型
+
+
+            ## 工作流程（一步输出全部）
+
+            请严格按照以下5个步骤，用XML标签包裹每个步骤的输出：
+
+
+            <step1>第一印象与初步诊断</step1>
+
+            一句话总结这份简历的核心问题和适配岗位。
+
+
+            <step2>地毯式深度审计与指导</step2>
+
+            逐条分析简历的优点和致命缺点，重点指出和目标岗位的差距。
+
+
+            <step3>战略性修改蓝图</step3>
+
+            给出优先级建议，哪些必须改、哪些可以保留、哪些是加分项。
+
+
+            <step4>重构与展示（A/B双版本）</step4>
+
+            - 【保守版】：基于原文事实，最小改动，稳妥投递
+
+            - 【激进版】：充分挖掘潜力，适当提升叙事高度，冲击大厂
+
+
+            <step5>最终裁决与行动清单</step5>
+
+            给出投递建议和下一步的修改清单。
+
+
+            ## 特别要求
+
+            1. 所有量化数据如果原文没有，使用`[启发提示：请补充...]`占位符
+
+            2. 专业术语严格校对大小写（MyBatis-Plus、RESTful、Redis等）'
+        - id: b5b2d84f-540c-4c47-a748-72552e9fb7cf
+          role: user
+          text: '<user_resume>
+
+            {{#1780145433422.result#}}
+
+            </user_resume>
+
+
+            <job_description>
+
+            {{#sys.query#}}
+
+            </job_description>
+
+
+            <jd_analysis>
+
+            {{#llm.text#}}
+
+            </jd_analysis>
+
+
+            <reference_cases>
+
+            {{#1780146952031.result#}}
+
+            </reference_cases>
+
+
+            请执行五步简历优化流程，生成完整的优化报告。'
+        selected: false
+        title: 核心引擎：五步合并
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1780146990310'
+      position:
+        x: 1705
+        y: 18
+      positionAbsolute:
+        x: 1705
+        y: 18
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "def main(text: str) -> dict:\n    required_tags = ['<step1>', '<step2>',\
+          \ '<step3>', '<step4>', '<step5>']\n    missing_tags = [tag for tag in required_tags\
+          \ if tag not in text]\n    \n    has_ab_version = '保守版' in text and '激进版'\
+          \ in text\n    is_valid = len(missing_tags) == 0 and has_ab_version\n  \
+          \  \n    return {\n        \"is_valid\": \"true\" if is_valid else \"false\"\
+          ,\n        \"text\": text\n    }"
+        code_language: python3
+        outputs:
+          is_valid:
+            children: null
+            type: string
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 输出校验
+        type: code
+        variables:
+        - value_selector:
+          - '1780146990310'
+          - text
+          value_type: string
+          variable: text
+      height: 51
+      id: '1780147101969'
+      position:
+        x: 2046
+        y: 36
+      positionAbsolute:
+        x: 2046
+        y: 36
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: d29e1a5b-460d-423c-bd0b-bc26ca5a350b
+            value: 'true'
+            varType: string
+            variable_selector:
+            - '1780147101969'
+            - is_valid
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 123
+      id: '1780147620952'
+      position:
+        x: 2387
+        y: 0
+      positionAbsolute:
+        x: 2387
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '你的简历内容稍显单薄，为了给你最精准的大厂优化方案，请补充 3 项信息：
+
+
+          1. 目标岗位（如：Java后端、产品经理、数据分析师）
+
+          2. 工作年限（应届生 / 1-3年 / 3-5年 / 5年+）
+
+          3. 最能代表你能力的核心项目
+
+
+          补充后我立即为你深度诊断！'
+        isInIteration: false
+        isInLoop: false
+        selected: false
+        title: 内容过空提示 (1)
+        type: answer
+        variables: []
+      height: 195
+      id: '17801478664400'
+      position:
+        x: 1344
+        y: 339
+      positionAbsolute:
+        x: 1344
+        y: 339
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 255.8499999999999
+      y: 242.84999999999997
+      zoom: 0.7
+  rag_pipeline_variables: []

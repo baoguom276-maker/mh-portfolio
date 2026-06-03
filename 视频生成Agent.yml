@@ -1,0 +1,401 @@
+app:
+  description: 接收分镜CSV，批量调用即梦AI生成视频片段
+  icon: panda_face
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 视频生成Agent
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1780322528459-source-1780322610587-target
+      selected: false
+      source: '1780322528459'
+      sourceHandle: source
+      target: '1780322610587'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1780322610587-source-1780322683634-target
+      selected: false
+      source: '1780322610587'
+      sourceHandle: source
+      target: '1780322683634'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1780322683634'
+        sourceType: iteration-start
+        targetType: code
+      id: 1780322683634start-source-1780363205086-target
+      source: 1780322683634start
+      sourceHandle: source
+      target: '1780363205086'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1780322683634'
+        sourceType: code
+        targetType: code
+      id: 1780363205086-source-1780323219864-target
+      source: '1780363205086'
+      sourceHandle: source
+      target: '1780323219864'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: end
+      id: 1780322683634-source-end-target
+      source: '1780322683634'
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 分镜CSV完整内容
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: csv_content
+        - default: '16:9'
+          hint: ''
+          label: aspect_ratio
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: aspect_ratio
+      height: 134
+      id: '1780322528459'
+      position:
+        x: 0
+        y: 37
+      positionAbsolute:
+        x: 0
+        y: 37
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import csv\nimport io\n\ndef main(csv_content: str, aspect_ratio: str\
+          \ = \"16:9\") -> dict:\n    # 清理markdown标记\n    cleaned = csv_content.replace('```csv',\
+          \ '').replace('```', '').strip()\n    \n    try:\n        reader = csv.DictReader(io.StringIO(cleaned))\n\
+          \        rows = list(reader)\n    except Exception as e:\n        return\
+          \ {\n            \"prompts\": [],\n            \"count\": 0,\n         \
+          \   \"errors\": [f\"CSV解析失败: {str(e)}\"]\n        }\n    \n    prompts =\
+          \ []\n    errors = []\n    \n    for i, row in enumerate(rows, 1):\n   \
+          \     prompt = row.get('prompt', '').strip()\n        if prompt:\n     \
+          \       prompts.append(prompt)\n        else:\n            errors.append(f\"\
+          第{i}行: prompt为空\")\n    \n    return {\n        \"prompts\": prompts,\n\
+          \        \"count\": len(prompts),\n        \"errors\": errors\n    }"
+        code_language: python3
+        outputs:
+          count:
+            children: null
+            type: number
+          errors:
+            children: null
+            type: array[string]
+          prompts:
+            children: null
+            type: array[string]
+        selected: false
+        title: 解析CSV
+        type: code
+        variables:
+        - value_selector:
+          - '1780322528459'
+          - csv_content
+          value_type: string
+          variable: csv_content
+        - value_selector:
+          - '1780322528459'
+          - aspect_ratio
+          value_type: string
+          variable: aspect_ratio
+      height: 51
+      id: '1780322610587'
+      position:
+        x: 342
+        y: 78
+      positionAbsolute:
+        x: 342
+        y: 78
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 207
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1780322610587'
+        - prompts
+        output_selector:
+        - '1780323219864'
+        - result
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1780322683634start
+        title: 迭代
+        type: iteration
+        width: 806
+      height: 207
+      id: '1780322683634'
+      position:
+        x: 683
+        y: 0
+      positionAbsolute:
+        x: 683
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 806
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1780322683634start
+      parentId: '1780322683634'
+      position:
+        x: 60
+        y: 80
+      positionAbsolute:
+        x: 743
+        y: 80
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "import uuid\nimport json\n\ndef main(prompt: str = \"\", aspect_ratio:\
+          \ str = \"16:9\", image_url: str = \"\") -> dict:\n    \"\"\"\n    模拟即梦AI-视频生成API的返回格式\n\
+          \    保持与真实API相同的输出结构，便于后期无缝替换\n    \"\"\"\n    mock_id = str(uuid.uuid4())[:12]\n\
+          \    \n    # 模拟不同比例\n    ratio_map = {\n        \"16:9\": \"1280x720\",\n\
+          \        \"9:16\": \"720x1280\", \n        \"1:1\": \"960x960\",\n     \
+          \   \"4:3\": \"960x720\",\n        \"3:4\": \"720x960\",\n        \"21:9\"\
+          : \"1680x720\"\n    }\n    resolution = ratio_map.get(aspect_ratio, \"1280x720\"\
+          )\n    \n    # 生成模拟视频URL（带参数标记，方便调试）\n    mock_url = f\"https://mock-video.example.com/{mock_id}_{resolution}.mp4?prompt={prompt[:30]}\"\
+          \n    \n    # 返回与真实API兼容的JSON字符串格式\n    response = {\n        \"url\": mock_url,\n\
+          \        \"task_id\": f\"mock_task_{mock_id}\",\n        \"resolution\"\
+          : resolution,\n        \"duration\": 5,\n        \"prompt\": prompt,\n \
+          \       \"image_url\": image_url,\n        \"status\": \"success\"\n   \
+          \ }\n    \n    return {\n        \"text\": json.dumps(response, ensure_ascii=False)\n\
+          \    }"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1780322683634'
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 即梦AI-模拟
+        type: code
+        variables:
+        - value_selector:
+          - '1780322683634'
+          - item
+          value_type: string
+          variable: prompt
+        - value_selector:
+          - '1780322528459'
+          - aspect_ratio
+          value_type: string
+          variable: aspect_ratio
+      height: 51
+      id: '1780363205086'
+      parentId: '1780322683634'
+      position:
+        x: 162.57142857142844
+        y: 78.57142857142858
+      positionAbsolute:
+        x: 845.5714285714284
+        y: 78.57142857142858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1002
+    - data:
+        code: "import json\n\ndef main(api_text: str = \"\") -> dict:\n    \"\"\"\n\
+          \    从即梦API返回中提取视频URL\n    api_text: 即梦API返回的text\n    \"\"\"\n    url =\
+          \ \"\"\n    \n    # 尝试解析JSON\n    try:\n        data = json.loads(api_text)\n\
+          \        if isinstance(data, dict):\n            for key in ['url', 'video_url',\
+          \ 'file_url', 'text']:\n                if key in data and isinstance(data[key],\
+          \ str) and data[key].startswith('http'):\n                    url = data[key]\n\
+          \                    break\n    except:\n        # 不是JSON，直接检查是否是URL\n \
+          \       text = api_text.strip()\n        if text.startswith('http'):\n \
+          \           url = text\n    \n    return {\n        \"result\": url\n  \
+          \  }"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1780322683634'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 收集视频URL
+        type: code
+        variables:
+        - value_selector:
+          - '1780363205086'
+          - text
+          value_type: string
+          variable: api_text
+      height: 51
+      id: '1780323219864'
+      parentId: '1780322683634'
+      position:
+        x: 505
+        y: 78
+      positionAbsolute:
+        x: 1188
+        y: 78
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1002
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1780322683634'
+          - output
+          value_type: array[string]
+          variable: video_urls
+        - value_selector:
+          - '1780322610587'
+          - count
+          value_type: number
+          variable: clip_count
+        - value_selector:
+          - '1780322610587'
+          - errors
+          value_type: array[string]
+          variable: errors
+        selected: false
+        title: 结束
+        type: end
+      height: 139
+      id: end
+      position:
+        x: 1590
+        y: 37
+      positionAbsolute:
+        x: 1590
+        y: 37
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 301.75
+      y: 348.54999999999995
+      zoom: 0.7
+  rag_pipeline_variables: []
