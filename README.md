@@ -91,7 +91,7 @@
 
 ## 联系我
 
-- 📧 邮箱：你的邮箱2922783006@qq.com
+- 📧 邮箱：mamenghan9881@163.com
 - 🌐 作品集：[https://你的域名.pages.dev](https://你的域名.pages.dev)
 - 💼 期待方向：AI 产品经理
 ```
