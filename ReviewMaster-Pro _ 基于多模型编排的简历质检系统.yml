@@ -51,8 +51,19 @@ workflow:
         workflow_file_upload_limit: 10
       image:
         enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
       number_limits: 3
-    opening_statement: ''
+    opening_statement: '🔮 ReviewMaster-Pro | 基于多模型编排的简历质检系统
+
+      欢迎来到产研精英的简历重构空间。我是你的智能审计教练。
+
+      本系统已接入大厂能力知识库，将站在 C-Level（高管/评委级）视角，深度解构你简历中隐藏的“价值真空”。无论你是 PM（产品经理） 还是 RD（研发工程师），我都会通过多模型协同编排，为你提供地毯式的深度诊断，并直接输出
+      A/B 双版本（保守稳妥 vs 冲击大厂） 的重构蓝图。
+
+      📑 准备好了吗？请在下方直接输入/粘贴你的【简历全文】以及你的【目标岗位/JD】，我们马上开始战略级改造！'
     retriever_resource:
       enabled: false
     sensitive_word_avoidance:
@@ -309,10 +320,10 @@ workflow:
       height: 87
       id: llm
       position:
-        x: 1344
+        x: 1044
         y: 3
       positionAbsolute:
-        x: 1344
+        x: 1044
         y: 3
       selected: false
       sourcePosition: right
@@ -332,10 +343,10 @@ workflow:
       height: 121
       id: answer
       position:
-        x: 3089
+        x: 2789
         y: 194
       positionAbsolute:
-        x: 3089
+        x: 2789
         y: 194
       selected: false
       sourcePosition: right
@@ -361,10 +372,10 @@ workflow:
       height: 147
       id: '1780143496013'
       position:
-        x: 983
+        x: 683
         y: 110
       positionAbsolute:
-        x: 983
+        x: 683
         y: 110
       selected: false
       sourcePosition: right
@@ -380,10 +391,10 @@ workflow:
       height: 115
       id: '1780144445503'
       position:
-        x: 2748
+        x: 2448
         y: 16
       positionAbsolute:
-        x: 2748
+        x: 2448
         y: 16
       selected: false
       sourcePosition: right
@@ -443,10 +454,10 @@ workflow:
       height: 87
       id: '1780144843820'
       position:
-        x: 2748
+        x: 2448
         y: 211
       positionAbsolute:
-        x: 2748
+        x: 2448
         y: 211
       selected: false
       sourcePosition: right
@@ -483,10 +494,10 @@ workflow:
       height: 51
       id: '1780145433422'
       position:
-        x: 642
+        x: 342
         y: 158
       positionAbsolute:
-        x: 642
+        x: 342
         y: 158
       selected: false
       sourcePosition: right
@@ -515,10 +526,10 @@ workflow:
       height: 89
       id: '1780146952031'
       position:
-        x: 1344
+        x: 1044
         y: 170
       positionAbsolute:
-        x: 1344
+        x: 1044
         y: 170
       selected: false
       sourcePosition: right
@@ -630,10 +641,10 @@ workflow:
       height: 87
       id: '1780146990310'
       position:
-        x: 1705
+        x: 1405
         y: 18
       positionAbsolute:
-        x: 1705
+        x: 1405
         y: 18
       selected: false
       sourcePosition: right
@@ -667,12 +678,12 @@ workflow:
       height: 51
       id: '1780147101969'
       position:
-        x: 2046
+        x: 1746
         y: 36
       positionAbsolute:
-        x: 2046
+        x: 1746
         y: 36
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -696,10 +707,10 @@ workflow:
       height: 123
       id: '1780147620952'
       position:
-        x: 2387
+        x: 2087
         y: 0
       positionAbsolute:
-        x: 2387
+        x: 2087
         y: 0
       selected: false
       sourcePosition: right
@@ -727,10 +738,10 @@ workflow:
       height: 195
       id: '17801478664400'
       position:
-        x: 1344
+        x: 1044
         y: 339
       positionAbsolute:
-        x: 1344
+        x: 1044
         y: 339
       selected: false
       sourcePosition: right
@@ -738,7 +749,7 @@ workflow:
       type: custom
       width: 241
     viewport:
-      x: 255.8499999999999
-      y: 242.84999999999997
+      x: -1411.15
+      y: 259.85
       zoom: 0.7
   rag_pipeline_variables: []
