@@ -1,7 +1,6 @@
 # mh-portfolio
 9 个基于 Dify 的 AI 应用作品集 | AIGC 漫剧制作管线 + 客服能力测评 + 企业效率工具 | 多 Agent 协作 · Workflow 编排 · Prompt Engineering
-> 在线体验：[https://你的域名.pages.dev](https://你的域名.pages.dev)
-
+> 在线体验：https://mmh-portfolio.pages.dev/
 ## 产品矩阵
 ### 🎬 AIGC 漫剧制作管线（5 个产品）
 **解决痛点**：传统漫剧制作周期长（数周）、成本高、角色一致性难保证。
