@@ -253,7 +253,7 @@ workflow:
           required: true
           type: file-list
           variable: files
-        - default: 北京字节多多科技有限责任公司,测试客户A
+        - default: 北京字节多多科技有限责任公司,测试客户A，上海敬之网络科技有限公司，滴滴出行科技有限公司，马梦晗
           hint: ''
           label: 准入购买方名称（多个用逗号隔开）
           options: []
@@ -273,10 +273,10 @@ workflow:
       id: '1760760738509'
       position:
         x: -23.36276454930595
-        y: 315.915907117741
+        y: 317.4909762305842
       positionAbsolute:
         x: -23.36276454930595
-        y: 315.915907117741
+        y: 317.4909762305842
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -764,22 +764,20 @@ workflow:
     - data:
         code: "import re\nfrom datetime import datetime\nfrom typing import List,\
           \ Dict, Any\n\ndef main(data: List[Dict], comp_rule: str, proj_rule: str)\
-          \ -> Dict:\n    \"\"\"\n    终极修复版：可配置规则 + 三级风控分级审核引擎（彻底修复 NameError: 'S'\
-          \ 报错）\n    \"\"\"\n    # 兼容性处理\n    if data is None: data = []\n    \n \
-          \   # 解析可配置规则（切分为列表并去空格）\n    allowed_companies = [c.strip() for c in comp_rule.split(',')\
-          \ if c.strip()] if comp_rule else []\n    allowed_projects = [p.strip()\
-          \ for p in proj_rule.split(',') if p.strip()] if proj_rule else []\n   \
-          \ \n    result = []\n    \n    for item in data:\n        temp = item.copy()\n\
-          \        reject_reasons = []  # 致命错误挂载点\n        review_reasons = []  #\
-          \ 警告/复核项挂载点\n        \n        # --- 0. 严密兜底逻辑：严格校验必须存在的核心字段（此时 seller_name\
-          \ 允许为空，不触发一刀切复核） ---\n        strict_critical_fields = ['payer_name', 'taxpayer_num',\
-          \ 'total_price', 'invoicing_date']\n        missing_fields = [f for f in\
-          \ strict_critical_fields if not temp.get(f) or str(temp.get(f)).strip()\
-          \ in ['无', '未知', 'None', '']]\n        \n        if missing_fields:\n  \
-          \          temp['audit_status'] = 'REVIEW'\n            temp['reason'] =\
-          \ f\"识别异常：关键字段缺失 {missing_fields}，转入人工兜底复核\"\n            result.append(temp)\n\
-          \            continue\n            \n        # ====================================================\n\
-          \        # \U0001F6D1 强红线 1：【个人抬头强拦截】\n        # ====================================================\n\
+          \ -> Dict:\n    \"\"\"\n    优化版：已移除企业白名单强拦截校验逻辑\n    \"\"\"\n    if data\
+          \ is None: data = []\n    \n    # 解析允许报销的项目类型规则\n    allowed_projects =\
+          \ [p.strip() for p in proj_rule.split(',') if p.strip()] if proj_rule else\
+          \ []\n    \n    result = []\n    \n    for item in data:\n        temp =\
+          \ item.copy()\n        reject_reasons = []  # 致命错误挂载点\n        review_reasons\
+          \ = []  # 警告/复核项挂载点\n        \n        # --- 0. 严密兜底逻辑：严格校验必须存在的核心字段 ---\n\
+          \        strict_critical_fields = ['payer_name', 'taxpayer_num', 'total_price',\
+          \ 'invoicing_date']\n        missing_fields = [f for f in strict_critical_fields\
+          \ if not temp.get(f) or str(temp.get(f)).strip() in ['无', '未知', 'None',\
+          \ '']]\n        \n        if missing_fields:\n            temp['audit_status']\
+          \ = 'REVIEW'\n            temp['reason'] = f\"识别异常：关键字段缺失 {missing_fields}，转入人工兜底复核\"\
+          \n            result.append(temp)\n            continue\n            \n\
+          \        # ====================================================\n      \
+          \  # \U0001F6AB 强红线 1：【个人抬头强拦截】\n        # ====================================================\n\
           \        payer_name_str = str(temp.get('payer_name', ''))\n        if \"\
           个人\" in payer_name_str or \"马梦晗\" in payer_name_str:\n            reject_reasons.append(\"\
           禁止使用个人抬头实体进行企业报销红线拦截\")\n            \n        # ====================================================\n\
@@ -789,19 +787,14 @@ workflow:
           \ 'null']\n        \n        if payer_clean and seller_clean and (payer_clean\
           \ == seller_clean) and (seller_clean not in invalid_names):\n          \
           \  reject_reasons.append(\"触发自开自报红线拦截（购买方与销售方名称完全一致，存在虚开或老鼠仓风险）\")\n\n \
-          \       # --- 1. 购买方企业白名单校验 (参数化配置-升级容错版) ---\n        payer = temp.get('payer_name',\
-          \ '')\n        if allowed_companies:\n            matched_company = False\n\
-          \            for comp in allowed_companies:\n                if comp in\
-          \ payer or payer in comp:\n                    matched_company = True\n\
-          \                    break\n            if not matched_company:\n      \
-          \          reject_reasons.append(\"购买方名称不匹配企业白名单\")\n        else:\n   \
-          \         if \"北京字节多多\" not in payer:\n                reject_reasons.append(\"\
-          购买方名称不匹配(默认)\")\n\n        # --- 2. 纳税人识别号格式校验 ---\n        tax_num = temp.get('taxpayer_num',\
+          \       # ====================================================\n       \
+          \ # ✨【注意】原有的购买方企业白名单校验逻辑已从此位置移除\n        # ====================================================\n\
+          \n        # --- 2. 纳税人识别号格式校验 ---\n        tax_num = temp.get('taxpayer_num',\
           \ '')\n        if len(str(tax_num)) not in [15, 18]:\n            reject_reasons.append(\"\
-          纳税人识别号位数异常(非15或18位)\")\n\n        # --- 3. 项目名称校验 (✨ 干净无错版，自带客运服务费绿色通道)\
-          \ ---\n        project = temp.get('project_name', '')\n        if \"客运\"\
-          \ in project or \"运输\" in project:\n            # 如果是打车费或客运服务，属于高频合理企业消费，直接免检放行\n\
-          \            pass \n        elif allowed_projects:\n            if not any(p\
+          纳税人识别号位数异常(非15或18位)\")\n\n        # --- 3. 项目名称校验 (自带客运服务费绿色通道) ---\n  \
+          \      project = temp.get('project_name', '')\n        if \"客运\" in project\
+          \ or \"运输\" in project:\n            # 如果是打车费或客运服务，属于高频合理企业消费，直接免检放行\n \
+          \           pass \n        elif allowed_projects:\n            if not any(p\
           \ in project for p in allowed_projects):\n                review_reasons.append(\"\
           消费项目不在常规白名单内，需财务确认合规性\")\n\n        # --- 4. 开票日期时效校验 ---\n        try:\n\
           \            date_str = str(temp.get('invoicing_date', ''))[:10]\n     \
@@ -848,10 +841,10 @@ workflow:
       height: 51
       id: '1760765077341'
       position:
-        x: 2198.2768680640274
+        x: 2199.8519371768707
         y: 293.17726614403153
       positionAbsolute:
-        x: 2198.2768680640274
+        x: 2199.8519371768707
         y: 293.17726614403153
       selected: true
       sourcePosition: right
@@ -913,7 +906,7 @@ workflow:
       type: custom
       width: 241
     viewport:
-      x: -2086.135474295871
-      y: 138.94995379439032
-      zoom: 0.837746039214147
+      x: -724.9067427033506
+      y: 111.24603619056711
+      zoom: 0.6348927750826762
   rag_pipeline_variables: []
