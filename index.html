@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>马梦晗 - AI产品经理作品集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5B4EFF',
+                        'primary-light': '#7B6FFF',
+                        accent: '#00D4FF',
+                        'accent-light': '#33DDFF',
+                        dark: '#1A1A2E',
+                        'dark-secondary': '#4A4A68',
+                        'dark-tertiary': '#8A8AA3',
+                        'bg-light': '#F8F9FC',
+                        'bg-white': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(91, 78, 255, 0.1);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #5B4EFF 0%, #00D4FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #F8F9FC 0%, #FFFFFF 50%, #F0F4FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(91, 78, 255, 0.08) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, transparent 70%);
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(91, 78, 255, 0.15);
+        }
+        .tag-pill {
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 1px solid rgba(91, 78, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .tag-pill:hover {
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+            transform: scale(1.05);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #5B4EFF 0%, #7B6FFF 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(91, 78, 255, 0.4);
+        }
+        .btn-secondary {
+            border: 2px solid rgba(91, 78, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: #5B4EFF;
+            background: rgba(91, 78, 255, 0.05);
+            transform: translateY(-2px);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .screenshot-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(91, 78, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+        .screenshot-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(91, 78, 255, 0.2);
+            border-color: rgba(91, 78, 255, 0.3);
+        }
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .screenshot-caption {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: #4A4A68;
+            background: #F8F9FC;
+            border-top: 1px solid rgba(91, 78, 255, 0.05);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F9FC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #5B4EFF, #00D4FF);
+            border-radius: 4px;
+        }
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+        .lightbox-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            box-shadow: 0 4px 20px -4px rgba(91, 78, 255, 0.1) !important;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #F0F4FF 0%, #E8EEFF 100%);
+        }
+        .video-container video,
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 1px solid rgba(91, 78, 255, 0.2);
+            color: #5B4EFF;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .download-btn:hover {
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px -4px rgba(91, 78, 255, 0.2);
+        }
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #8A8AA3;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #5B4EFF 0%, #7B6FFF 100%);
+            color: white;
+            box-shadow: 0 4px 12px -4px rgba(91, 78, 255, 0.3);
+        }
+        .tab-btn:hover:not(.active) {
+            background: rgba(91, 78, 255, 0.05);
+            color: #5B4EFF;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-dark bg-bg-white antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <span class="font-semibold text-dark">Portfolio</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium">About</a>
+                    <a href="#projects" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium">Projects</a>
+                    <a href="#github" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium">GitHub</a>
+                    <a href="#contact" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-bg-light transition-colors">
+                    <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden glass mx-4 rounded-2xl mt-2 p-4">
+            <div class="flex flex-col space-y-3">
+                <a href="#about" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium py-2">About</a>
+                <a href="#projects" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium py-2">Projects</a>
+                <a href="#github" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium py-2">GitHub</a>
+                <a href="#contact" class="text-dark-secondary hover:text-primary transition-colors text-sm font-medium py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center justify-center relative pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="fade-in">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass mb-8">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                        <span class="text-sm text-dark-secondary font-medium">Available for AI Product Opportunities</span>
+                    </div>
+                </div>
+                <h1 class="fade-in stagger-1 text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                    你好，我是 <span class="gradient-text">马梦晗</span>
+                </h1>
+                <p class="fade-in stagger-2 text-xl sm:text-2xl text-dark-secondary mb-4 font-medium">
+                    AI Product Manager | Dify 高级玩家
+                </p>
+                <p class="fade-in stagger-3 text-lg text-dark-tertiary mb-10 max-w-2xl mx-auto leading-relaxed">
+                    专注 AIGC 与智能工具产品，擅长 Agent 编排、多模型工作流设计与 Prompt Engineering。构建过 4 个基于 Dify 的 AI 应用，覆盖客服测评、简历质检、发票审核、AIGC 漫剧制作等场景。
+                </p>
+                <div class="fade-in stagger-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#projects" class="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg inline-flex items-center space-x-2">
+                        <span>查看我的作品</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                        </svg>
+                    </a>
+                    <a href="#github" class="btn-secondary px-8 py-4 rounded-xl text-dark font-semibold text-lg inline-flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-dark-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="w-48 h-48 mx-auto lg:mx-0 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                        <div class="w-44 h-44 rounded-full bg-bg-light flex items-center justify-center">
+                            <svg class="w-20 h-20 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in stagger-2">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-6">
+                        About <span class="gradient-text">Me</span>
+                    </h2>
+                    <p class="text-dark-secondary text-lg leading-relaxed mb-6">
+                        我是一名专注于 AI 产品落地的产品经理，拥有从 0 到 1 构建智能工具产品的完整经验。擅长将复杂的 AI 能力转化为用户友好的产品形态，尤其在 AIGC 内容生产、智能客服、自动化审核等领域有深度实践。
+                    </p>
+                    <p class="text-dark-tertiary leading-relaxed mb-8">
+                        熟练使用 Dify 进行多 Agent 编排与工作流设计，精通 Prompt Engineering 与 RAG 知识库构建，具备将大模型能力产品化的系统思维。
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">Dify Workflow</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">AI Agent</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">多模型编排</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">Prompt Engineering</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">RAG</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">产品设计</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">数据分析</span>
+                        <span class="tag-pill px-4 py-2 rounded-full text-sm font-medium text-primary">AIGC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+                    精选 <span class="gradient-text">Projects</span>
+                </h2>
+                <p class="text-dark-tertiary text-lg max-w-2xl mx-auto">
+                    4 个基于 Dify 的 AI 应用，覆盖客服测评、简历质检、发票审核、AIGC 漫剧制作等场景
+                </p>
+            </div>
+
+            <!-- Project 1: 剧服通 -->
+            <div class="mb-20 fade-in">
+                <div class="glass rounded-2xl overflow-hidden project-card">
+                    <div class="p-6 sm:p-8">
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="lg:w-2/5">
+                                <div class="video-container mb-4">
+                                    <!-- 替换为真实视频后取消注释：
+                                    <video controls poster="./assets/jufutong/workflow_overview.png">
+                                        <source src="./assets/jufutong/Jufutong-Demo.mp4" type="video/mp4">
+                                    </video>
+                                    -->
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2">「剧服通」AIGC客服能力测评系统</h3>
+                                <p class="text-dark-tertiary text-sm mb-4">基于真实业务场景的 5 轮对话测评，RAG 知识库 + 双维度评分 + Supabase 榜单</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Dify Workflow</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">RAG</span>
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Supabase</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">DeepSeek</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="./assets/jufutong/prd.docx" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                        PRD文档
+                                    </a>
+                                    <a href="./assets/jufutong/competitive_analysis.docx" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                        竞品分析
+                                    </a>
+                                    <a href="./「剧服通」AIGC客服能力测评系统.yml" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                                        </svg>
+                                        源码下载
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lg:w-3/5">
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active" onclick="switchTab('jufutong', 'workflow')">工作流</button>
+                                    <button class="tab-btn" onclick="switchTab('jufutong', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('jufutong', 'test')">测试效果</button>
+                                </div>
+                                <div id="jufutong-workflow" class="tab-content active">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/jufutong/workflow_overview.png" alt="工作流全景图" loading="lazy">
+                                            <div class="screenshot-caption">工作流全景图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="jufutong-nodes" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/jufutong/llm_scoring_node.png" alt="LLM评分节点" loading="lazy">
+                                            <div class="screenshot-caption">LLM评分节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/jufutong/rag_retrieval_node.png" alt="RAG知识检索节点" loading="lazy">
+                                            <div class="screenshot-caption">RAG知识检索节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="jufutong-test" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/jufutong/test_welcome.png" alt="测试-开场白" loading="lazy">
+                                            <div class="screenshot-caption">测试-开场白</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/jufutong/test_scoring.png" alt="测试-评分结果" loading="lazy">
+                                            <div class="screenshot-caption">测试-评分结果</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: ReviewMaster-Pro -->
+            <div class="mb-20 fade-in">
+                <div class="glass rounded-2xl overflow-hidden project-card">
+                    <div class="p-6 sm:p-8">
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="lg:w-2/5">
+                                <div class="video-container mb-4">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2">ReviewMaster-Pro 简历质检系统</h3>
+                                <p class="text-dark-tertiary text-sm mb-4">多模型编排深度诊断，C-Level 视角，A/B 双版本重构，大厂产研方向</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">多模型编排</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">知识库</span>
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">DeepSeek</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">通义千问</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="./assets/resume/prd.docx" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                        PRD文档
+                                    </a>
+                                    <a href="./assets/resume/competitive_analysis.docx" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                        竞品分析
+                                    </a>
+                                    <a href="./ReviewMaster-Pro _ 基于多模型编排的简历质检系统.yml" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                                        </svg>
+                                        源码下载
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lg:w-3/5">
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active" onclick="switchTab('resume', 'workflow')">工作流</button>
+                                    <button class="tab-btn" onclick="switchTab('resume', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('resume', 'test')">测试效果</button>
+                                </div>
+                                <div id="resume-workflow" class="tab-content active">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/workflow_overview.png" alt="工作流全景图" loading="lazy">
+                                            <div class="screenshot-caption">工作流全景图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resume-nodes" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/quality_screening_node..png" alt="质量初筛节点" loading="lazy">
+                                            <div class="screenshot-caption">质量初筛节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/core_engine_node.png" alt="核心引擎节点" loading="lazy">
+                                            <div class="screenshot-caption">核心引擎节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/output_validation_node.png" alt="输出校验节点" loading="lazy">
+                                            <div class="screenshot-caption">输出校验节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resume-test" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/test_input.png" alt="测试-简历输入" loading="lazy">
+                                            <div class="screenshot-caption">测试-简历输入</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/test_ab_comparison.png" alt="测试-A/B对比" loading="lazy">
+                                            <div class="screenshot-caption">测试-A/B对比</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: 智能发票审核工具 -->
+            <div class="mb-20 fade-in">
+                <div class="glass rounded-2xl overflow-hidden project-card">
+                    <div class="p-6 sm:p-8">
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="lg:w-2/5">
+                                <div class="video-container mb-4">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2">智能发票审核工具</h3>
+                                <p class="text-dark-tertiary text-sm mb-4">图片/PDF 批量识别，三层风控（PASS/REVIEW/REJECT），合规审计</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Dify Workflow</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">视觉识别</span>
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">风控引擎</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">通义千问</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="./智能发票审核工具.yml" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                                        </svg>
+                                        源码下载
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lg:w-3/5">
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active" onclick="switchTab('invoice', 'workflow')">工作流</button>
+                                    <button class="tab-btn" onclick="switchTab('invoice', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('invoice', 'test')">测试效果</button>
+                                </div>
+                                <div id="invoice-workflow" class="tab-content active">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/workflow_overview.png" alt="工作流全景图" loading="lazy">
+                                            <div class="screenshot-caption">工作流全景图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="invoice-nodes" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/llm_vision_node.png" alt="LLM视觉识别节点" loading="lazy">
+                                            <div class="screenshot-caption">LLM视觉识别节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/machine_audit_node.png" alt="机器审核节点" loading="lazy">
+                                            <div class="screenshot-caption">机器审核节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/output_table_node.png" alt="输出表格节点" loading="lazy">
+                                            <div class="screenshot-caption">输出表格节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="invoice-test" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/test_output.png" alt="测试-审核输出" loading="lazy">
+                                            <div class="screenshot-caption">测试-审核输出</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/test_output.png" alt="测试-审核输出" loading="lazy">
+                                            <div class="screenshot-caption">测试-审核输出</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/test_output.png" alt="测试-审核输出" loading="lazy">
+                                            <div class="screenshot-caption">测试-审核输出</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: AIGC漫剧导演Agent -->
+            <div class="mb-20 fade-in">
+                <div class="glass rounded-2xl overflow-hidden project-card">
+                    <div class="p-6 sm:p-8">
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="lg:w-2/5">
+                                <div class="video-container mb-4">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2">AIGC漫剧导演Agent</h3>
+                                <p class="text-dark-tertiary text-sm mb-4">Agent 编排全流程，角色设计 → 分镜规划 → 视频生成 → 后期剪辑</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Agent编排</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">多工作流联动</span>
+                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">即梦AI</span>
+                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">火山引擎</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="./assets/comic/prd.docx" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                        PRD文档
+                                    </a>
+                                    <a href="./assets/comic/competitive_analysis.docx" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                        竞品分析
+                                    </a>
+                                    <a href="./AIGC漫剧导演Agent.yml" class="download-btn" download>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                                        </svg>
+                                        源码下载
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lg:w-3/5">
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active" onclick="switchTab('comic', 'architecture')">架构图</button>
+                                    <button class="tab-btn" onclick="switchTab('comic', 'workflow')">子工作流</button>
+                                    <button class="tab-btn" onclick="switchTab('comic', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('comic', 'test')">测试效果</button>
+                                </div>
+                                <div id="comic-architecture" class="tab-content active">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/agent_architecture.png" alt="Agent架构图" loading="lazy">
+                                            <div class="screenshot-caption">Agent架构图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comic-workflow" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/role_design_workflow.png" alt="角色设计工作流" loading="lazy">
+                                            <div class="screenshot-caption">角色设计工作流</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/storyboard_workflow.png" alt="分镜规划工作流" loading="lazy">
+                                            <div class="screenshot-caption">分镜规划工作流</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/video_gen_workflow.png" alt="视频生成工作流" loading="lazy">
+                                            <div class="screenshot-caption">视频生成工作流</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/post_production_workflow.png" alt="后期剪辑工作流" loading="lazy">
+                                            <div class="screenshot-caption">后期剪辑工作流</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comic-nodes" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/script_analysis_node.png" alt="剧本分析节点" loading="lazy">
+                                            <div class="screenshot-caption">剧本分析节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/role_extraction_code.png" alt="角色提取代码节点" loading="lazy">
+                                            <div class="screenshot-caption">角色提取代码节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/jimeng_image_gen_node.png" alt="即梦文生图节点" loading="lazy">
+                                            <div class="screenshot-caption">即梦文生图节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/storyboard_llm_prompt.png" alt="分镜LLM提示词" loading="lazy">
+                                            <div class="screenshot-caption">分镜LLM提示词</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/csv_format_node.png" alt="CSV格式化节点" loading="lazy">
+                                            <div class="screenshot-caption">CSV格式化节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/video_gen_mock.png" alt="视频生成Mock节点" loading="lazy">
+                                            <div class="screenshot-caption">视频生成Mock节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/video_url_collector.png" alt="视频URL收集节点" loading="lazy">
+                                            <div class="screenshot-caption">视频URL收集节点</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/post_edit_code.png" alt="后期剪辑代码节点" loading="lazy">
+                                            <div class="screenshot-caption">后期剪辑代码节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comic-test" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/test_welcome.png" alt="测试-开场白" loading="lazy">
+                                            <div class="screenshot-caption">测试-开场白</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/test_character_design.png" alt="测试-角色设计" loading="lazy">
+                                            <div class="screenshot-caption">测试-角色设计</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/test_storyboard_confirm.png" alt="测试-分镜确认" loading="lazy">
+                                            <div class="screenshot-caption">测试-分镜确认</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/test_video_gen_confirm.png" alt="测试-视频生成确认" loading="lazy">
+                                            <div class="screenshot-caption">测试-视频生成确认</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/test_final_output.png" alt="测试-最终成片" loading="lazy">
+                                            <div class="screenshot-caption">测试-最终成片</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Section -->
+    <section id="github" class="py-24 bg-bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+                    开源 <span class="gradient-text">GitHub</span>
+                </h2>
+                <p class="text-dark-tertiary text-lg max-w-2xl mx-auto">
+                    所有 Dify Workflow 源码已开源，欢迎 Star & PR
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto fade-in stagger-2">
+                <div class="glass rounded-2xl p-8">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">[你的GitHub用户名]</h3>
+                            <p class="text-dark-tertiary">AI Product Manager & Dify Expert</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="text-center p-4 rounded-xl bg-white/50">
+                            <div class="text-2xl font-bold text-primary">4</div>
+                            <div class="text-sm text-dark-tertiary">Repositories</div>
+                        </div>
+                        <div class="text-center p-4 rounded-xl bg-white/50">
+                            <div class="text-2xl font-bold text-accent">0</div>
+                            <div class="text-sm text-dark-tertiary">Stars</div>
+                        </div>
+                        <div class="text-center p-4 rounded-xl bg-white/50">
+                            <div class="text-2xl font-bold text-primary">0</div>
+                            <div class="text-sm text-dark-tertiary">Followers</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-accent"></span>
+                                <span class="text-sm font-medium">「剧服通」AIGC客服能力测评系统</span>
+                            </div>
+                            <a href="./「剧服通」AIGC客服能力测评系统.yml" download class="text-primary hover:text-accent transition-colors text-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-accent"></span>
+                                <span class="text-sm font-medium">ReviewMaster-Pro 简历质检系统</span>
+                            </div>
+                            <a href="./ReviewMaster-Pro _ 基于多模型编排的简历质检系统.yml" download class="text-primary hover:text-accent transition-colors text-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-primary"></span>
+                                <span class="text-sm font-medium">智能发票审核工具</span>
+                            </div>
+                            <a href="./智能发票审核工具.yml" download class="text-primary hover:text-accent transition-colors text-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-accent"></span>
+                                <span class="text-sm font-medium">AIGC漫剧导演Agent</span>
+                            </div>
+                            <a href="./AIGC漫剧导演Agent.yml" download class="text-primary hover:text-accent transition-colors text-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="https://github.com/[你的用户名]" target="_blank" class="btn-primary w-full py-3 rounded-xl text-white font-semibold text-center inline-flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>访问我的 GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer Section -->
+    <section id="contact" class="py-24 bg-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+                    Let's <span class="gradient-text">Connect</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    如果你对 AI 产品、Agent 编排或 AIGC 落地感兴趣，欢迎交流
+                </p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-16 fade-in stagger-2">
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm">HTML</span>
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm">Tailwind CSS</span>
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm">Cloudflare Pages</span>
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm">Dify</span>
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm">AI Agent</span>
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm">AIGC</span>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 fade-in stagger-3">
+                <div class="text-gray-400 text-sm">
+                    &copy; 2026 马梦晗 · AI Product Manager
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="mailto:[你的邮箱]" class="text-gray-400 hover:text-accent transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/[你的用户名]" target="_blank" class="text-gray-400 hover:text-accent transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="text-gray-500 text-sm">
+                    Made with &hearts; using Qorder + Cloudflare Pages
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(project, tab) {
+            // Hide all tab contents for this project
+            document.querySelectorAll('[id^="' + project + '-"]').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show selected tab content
+            document.getElementById(project + '-' + tab).classList.add('active');
+            // Update button states
+            const buttons = document.querySelectorAll('button[onclick^="switchTab(\'' + project + '\'"');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes("'" + tab + "'")) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Lightbox
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
