@@ -424,10 +424,12 @@
                         <div class="flex flex-col lg:flex-row gap-8">
                             <div class="lg:w-2/5">
                                 <div class="video-container mb-4">
-                                    <video controls poster="./assets/jufutong/workflow_overview.png" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;">
+                                    <!-- 替换为真实视频后取消注释：
+                                    <video controls poster="./assets/jufutong/workflow_overview.png">
                                         <source src="./assets/jufutong/Jufutong-Demo.mp4" type="video/mp4">
                                     </video>
-                                    <div class="absolute inset-0 flex items-center justify-center" style="display:none;" id="jufutong-fallback">
+                                    -->
+                                    <div class="absolute inset-0 flex items-center justify-center">
                                         <div class="text-center">
                                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
                                                 <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -471,6 +473,7 @@
                                 <div class="flex gap-2 mb-4">
                                     <button class="tab-btn active" onclick="switchTab('jufutong', 'workflow')">工作流</button>
                                     <button class="tab-btn" onclick="switchTab('jufutong', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('jufutong', 'prototype')">产品原型</button>
                                     <button class="tab-btn" onclick="switchTab('jufutong', 'test')">测试效果</button>
                                 </div>
                                 <div id="jufutong-workflow" class="tab-content active">
@@ -490,6 +493,14 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/rag_retrieval_node.png" alt="RAG知识检索节点" loading="lazy">
                                             <div class="screenshot-caption">RAG知识检索节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="jufutong-prototype" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/jufutong/jufutong-chat-flow.png" alt="产品原型-对话流程" loading="lazy">
+                                            <div class="screenshot-caption">产品原型-对话流程</div>
                                         </div>
                                     </div>
                                 </div>
@@ -518,9 +529,16 @@
                         <div class="flex flex-col lg:flex-row gap-8">
                             <div class="lg:w-2/5">
                                 <div class="video-container mb-4">
-                                    <video controls poster="./assets/resume/workflow_overview.png" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;">
-                                        <source src="./assets/resume/resume-demo.mp4" type="video/mp4">
-                                    </video>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <h3 class="text-2xl font-bold mb-2">ReviewMaster-Pro 简历质检系统</h3>
                                 <p class="text-dark-tertiary text-sm mb-4">多模型编排深度诊断，C-Level 视角，A/B 双版本重构，大厂产研方向</p>
@@ -555,6 +573,7 @@
                                 <div class="flex gap-2 mb-4">
                                     <button class="tab-btn active" onclick="switchTab('resume', 'workflow')">工作流</button>
                                     <button class="tab-btn" onclick="switchTab('resume', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('resume', 'prototype')">产品原型</button>
                                     <button class="tab-btn" onclick="switchTab('resume', 'test')">测试效果</button>
                                 </div>
                                 <div id="resume-workflow" class="tab-content active">
@@ -578,6 +597,18 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/output_validation_node.png" alt="输出校验节点" loading="lazy">
                                             <div class="screenshot-caption">输出校验节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resume-prototype" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/resume-audit-flow.png" alt="产品原型-质检流程" loading="lazy">
+                                            <div class="screenshot-caption">产品原型-质检流程</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/resume/resume-ab-compare.png" alt="产品原型-A/B对比" loading="lazy">
+                                            <div class="screenshot-caption">产品原型-A/B对比</div>
                                         </div>
                                     </div>
                                 </div>
@@ -606,9 +637,16 @@
                         <div class="flex flex-col lg:flex-row gap-8">
                             <div class="lg:w-2/5">
                                 <div class="video-container mb-4">
-                                    <video controls poster="./assets/invoice/workflow_overview.png" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;">
-                                        <source src="./assets/invoice/invoice-demo.mp4" type="video/mp4">
-                                    </video>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <h3 class="text-2xl font-bold mb-2">智能发票审核工具</h3>
                                 <p class="text-dark-tertiary text-sm mb-4">图片/PDF 批量识别，三层风控（PASS/REVIEW/REJECT），合规审计</p>
@@ -631,6 +669,7 @@
                                 <div class="flex gap-2 mb-4">
                                     <button class="tab-btn active" onclick="switchTab('invoice', 'workflow')">工作流</button>
                                     <button class="tab-btn" onclick="switchTab('invoice', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('invoice', 'prototype')">产品原型</button>
                                     <button class="tab-btn" onclick="switchTab('invoice', 'test')">测试效果</button>
                                 </div>
                                 <div id="invoice-workflow" class="tab-content active">
@@ -654,6 +693,14 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/output_table_node.png" alt="输出表格节点" loading="lazy">
                                             <div class="screenshot-caption">输出表格节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="invoice-prototype" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/invoice/invoice-risk-engine.png" alt="产品原型-风控引擎" loading="lazy">
+                                            <div class="screenshot-caption">产品原型-风控引擎</div>
                                         </div>
                                     </div>
                                 </div>
@@ -686,9 +733,16 @@
                         <div class="flex flex-col lg:flex-row gap-8">
                             <div class="lg:w-2/5">
                                 <div class="video-container mb-4">
-                                    <video controls poster="./assets/comic/agent_architecture.png" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;">
-                                        <source src="./assets/comic/comic-demo.mp4" type="video/mp4">
-                                    </video>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
+                                                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                                </svg>
+                                            </div>
+                                            <p class="text-dark-tertiary text-sm">演示视频即将上传</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <h3 class="text-2xl font-bold mb-2">AIGC漫剧导演Agent</h3>
                                 <p class="text-dark-tertiary text-sm mb-4">Agent 编排全流程，角色设计 → 分镜规划 → 视频生成 → 后期剪辑</p>
@@ -724,6 +778,7 @@
                                     <button class="tab-btn active" onclick="switchTab('comic', 'architecture')">架构图</button>
                                     <button class="tab-btn" onclick="switchTab('comic', 'workflow')">子工作流</button>
                                     <button class="tab-btn" onclick="switchTab('comic', 'nodes')">节点详解</button>
+                                    <button class="tab-btn" onclick="switchTab('comic', 'prototype')">产品原型</button>
                                     <button class="tab-btn" onclick="switchTab('comic', 'test')">测试效果</button>
                                 </div>
                                 <div id="comic-architecture" class="tab-content active">
@@ -787,6 +842,18 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/post_edit_code.png" alt="后期剪辑代码节点" loading="lazy">
                                             <div class="screenshot-caption">后期剪辑代码节点</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comic-prototype" class="tab-content">
+                                    <div class="screenshot-grid">
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/comic-func-structure.png" alt="产品原型-功能架构" loading="lazy">
+                                            <div class="screenshot-caption">产品原型-功能架构</div>
+                                        </div>
+                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                            <img src="./assets/comic/comic-core-flow.png" alt="产品原型-核心流程" loading="lazy">
+                                            <div class="screenshot-caption">产品原型-核心流程</div>
                                         </div>
                                     </div>
                                 </div>
