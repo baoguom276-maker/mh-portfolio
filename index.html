@@ -122,20 +122,16 @@
             background: rgba(91, 78, 255, 0.05);
             transform: translateY(-2px);
         }
+        /* 修复：fade-in 默认可见，JS只是添加动画效果 */
         .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 1;
+            transform: translateY(0);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        .stagger-5 { transition-delay: 0.5s; }
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -175,22 +171,6 @@
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, #5B4EFF, #00D4FF);
             border-radius: 4px;
-        }
-        .modal-overlay {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.3s ease;
-        }
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
         }
         .lightbox-overlay {
             opacity: 0;
@@ -287,6 +267,52 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .prototype-section {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #F8F9FC 0%, #F0F4FF 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(91, 78, 255, 0.1);
+        }
+        .prototype-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1A1A2E;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .prototype-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(91, 78, 255, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+        .prototype-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(91, 78, 255, 0.2);
+            border-color: rgba(91, 78, 255, 0.3);
+        }
+        .prototype-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .prototype-caption {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: #4A4A68;
+            background: #F8F9FC;
+            border-top: 1px solid rgba(91, 78, 255, 0.05);
+        }
     </style>
 <base target="_blank">
 </head>
@@ -329,22 +355,20 @@
     <section class="hero-bg min-h-screen flex items-center justify-center relative pt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-4xl mx-auto">
-                <div class="fade-in">
-                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass mb-8">
-                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                        <span class="text-sm text-dark-secondary font-medium">Available for AI Product Opportunities</span>
-                    </div>
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass mb-8">
+                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                    <span class="text-sm text-dark-secondary font-medium">Available for AI Product Opportunities</span>
                 </div>
-                <h1 class="fade-in stagger-1 text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                     你好，我是 <span class="gradient-text">马梦晗</span>
                 </h1>
-                <p class="fade-in stagger-2 text-xl sm:text-2xl text-dark-secondary mb-4 font-medium">
+                <p class="text-xl sm:text-2xl text-dark-secondary mb-4 font-medium">
                     AI Product Manager | Dify 高级玩家
                 </p>
-                <p class="fade-in stagger-3 text-lg text-dark-tertiary mb-10 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-lg text-dark-tertiary mb-10 max-w-2xl mx-auto leading-relaxed">
                     专注 AIGC 与智能工具产品，擅长 Agent 编排、多模型工作流设计与 Prompt Engineering。构建过 4 个基于 Dify 的 AI 应用，覆盖客服测评、简历质检、发票审核、AIGC 漫剧制作等场景。
                 </p>
-                <div class="fade-in stagger-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a href="#projects" class="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg inline-flex items-center space-x-2">
                         <span>查看我的作品</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -371,7 +395,7 @@
     <section id="about" class="py-24 bg-bg-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="fade-in">
+                <div>
                     <div class="w-48 h-48 mx-auto lg:mx-0 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                         <div class="w-44 h-44 rounded-full bg-bg-light flex items-center justify-center">
                             <svg class="w-20 h-20 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -380,7 +404,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fade-in stagger-2">
+                <div>
                     <h2 class="text-3xl sm:text-4xl font-bold mb-6">
                         About <span class="gradient-text">Me</span>
                     </h2>
@@ -408,7 +432,7 @@
     <!-- Projects Section -->
     <section id="projects" class="py-24 bg-bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 fade-in">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold mb-4">
                     精选 <span class="gradient-text">Projects</span>
                 </h2>
@@ -418,17 +442,12 @@
             </div>
 
             <!-- Project 1: 剧服通 -->
-            <div class="mb-20 fade-in">
+            <div class="mb-20">
                 <div class="glass rounded-2xl overflow-hidden project-card">
                     <div class="p-6 sm:p-8">
                         <div class="flex flex-col lg:flex-row gap-8">
                             <div class="lg:w-2/5">
                                 <div class="video-container mb-4">
-                                    <!-- 替换为真实视频后取消注释：
-                                    <video controls poster="./assets/jufutong/workflow_overview.png">
-                                        <source src="./assets/jufutong/Jufutong-Demo.mp4" type="video/mp4">
-                                    </video>
-                                    -->
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <div class="text-center">
                                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3">
@@ -450,30 +469,24 @@
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <a href="./assets/jufutong/prd.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                         PRD文档
                                     </a>
                                     <a href="./assets/jufutong/competitive_analysis.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                                         竞品分析
                                     </a>
                                     <a href="./「剧服通」AIGC客服能力测评系统.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                                         源码下载
                                     </a>
                                 </div>
                             </div>
                             <div class="lg:w-3/5">
-                                <div class="flex gap-2 mb-4">
+                                <div class="flex gap-2 mb-4 flex-wrap">
                                     <button class="tab-btn active" onclick="switchTab('jufutong', 'workflow')">工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('jufutong', 'nodes')">节点详解</button>
                                     <button class="tab-btn" onclick="switchTab('jufutong', 'prototype')">产品原型</button>
+                                    <button class="tab-btn" onclick="switchTab('jufutong', 'nodes')">节点详解</button>
                                     <button class="tab-btn" onclick="switchTab('jufutong', 'test')">测试效果</button>
                                 </div>
                                 <div id="jufutong-workflow" class="tab-content active">
@@ -481,6 +494,20 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/workflow_overview.png" alt="工作流全景图" loading="lazy">
                                             <div class="screenshot-caption">工作流全景图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="jufutong-prototype" class="tab-content">
+                                    <div class="prototype-section">
+                                        <h4>
+                                            <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            产品原型与设计
+                                        </h4>
+                                        <div class="prototype-grid">
+                                            <div class="prototype-item" onclick="openLightbox(this)">
+                                                <img src="./assets/jufutong/jufutong-chat-flow.png" alt="对话测评流程图" loading="lazy">
+                                                <div class="prototype-caption">5轮对话测评流程图（Xmind）- 完整交互逻辑与数据持久化</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -493,14 +520,6 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/rag_retrieval_node.png" alt="RAG知识检索节点" loading="lazy">
                                             <div class="screenshot-caption">RAG知识检索节点</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="jufutong-prototype" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/jufutong/jufutong-chat-flow.png" alt="产品原型-对话流程" loading="lazy">
-                                            <div class="screenshot-caption">产品原型-对话流程</div>
                                         </div>
                                     </div>
                                 </div>
@@ -523,7 +542,7 @@
             </div>
 
             <!-- Project 2: ReviewMaster-Pro -->
-            <div class="mb-20 fade-in">
+            <div class="mb-20">
                 <div class="glass rounded-2xl overflow-hidden project-card">
                     <div class="p-6 sm:p-8">
                         <div class="flex flex-col lg:flex-row gap-8">
@@ -550,30 +569,24 @@
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <a href="./assets/resume/prd.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                         PRD文档
                                     </a>
                                     <a href="./assets/resume/competitive_analysis.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                                         竞品分析
                                     </a>
                                     <a href="./ReviewMaster-Pro _ 基于多模型编排的简历质检系统.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                                         源码下载
                                     </a>
                                 </div>
                             </div>
                             <div class="lg:w-3/5">
-                                <div class="flex gap-2 mb-4">
+                                <div class="flex gap-2 mb-4 flex-wrap">
                                     <button class="tab-btn active" onclick="switchTab('resume', 'workflow')">工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('resume', 'nodes')">节点详解</button>
                                     <button class="tab-btn" onclick="switchTab('resume', 'prototype')">产品原型</button>
+                                    <button class="tab-btn" onclick="switchTab('resume', 'nodes')">节点详解</button>
                                     <button class="tab-btn" onclick="switchTab('resume', 'test')">测试效果</button>
                                 </div>
                                 <div id="resume-workflow" class="tab-content active">
@@ -581,6 +594,24 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/workflow_overview.png" alt="工作流全景图" loading="lazy">
                                             <div class="screenshot-caption">工作流全景图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resume-prototype" class="tab-content">
+                                    <div class="prototype-section">
+                                        <h4>
+                                            <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            产品原型与设计
+                                        </h4>
+                                        <div class="prototype-grid">
+                                            <div class="prototype-item" onclick="openLightbox(this)">
+                                                <img src="./assets/resume/resume-audit-flow.png" alt="五步审计流程图" loading="lazy">
+                                                <div class="prototype-caption">五步审计流程图（Xmind）- 多模型编排与质量校验机制</div>
+                                            </div>
+                                            <div class="prototype-item" onclick="openLightbox(this)">
+                                                <img src="./assets/resume/resume-ab-compare.png" alt="A/B版本对比" loading="lazy">
+                                                <div class="prototype-caption">A/B双版本对比示意（Figma）- 保守稳妥 vs 冲击大厂策略</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -597,18 +628,6 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/output_validation_node.png" alt="输出校验节点" loading="lazy">
                                             <div class="screenshot-caption">输出校验节点</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="resume-prototype" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/resume/resume-audit-flow.png" alt="产品原型-质检流程" loading="lazy">
-                                            <div class="screenshot-caption">产品原型-质检流程</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/resume/resume-ab-compare.png" alt="产品原型-A/B对比" loading="lazy">
-                                            <div class="screenshot-caption">产品原型-A/B对比</div>
                                         </div>
                                     </div>
                                 </div>
@@ -631,7 +650,7 @@
             </div>
 
             <!-- Project 3: 智能发票审核工具 -->
-            <div class="mb-20 fade-in">
+            <div class="mb-20">
                 <div class="glass rounded-2xl overflow-hidden project-card">
                     <div class="p-6 sm:p-8">
                         <div class="flex flex-col lg:flex-row gap-8">
@@ -658,18 +677,16 @@
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <a href="./智能发票审核工具.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                                         源码下载
                                     </a>
                                 </div>
                             </div>
                             <div class="lg:w-3/5">
-                                <div class="flex gap-2 mb-4">
+                                <div class="flex gap-2 mb-4 flex-wrap">
                                     <button class="tab-btn active" onclick="switchTab('invoice', 'workflow')">工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('invoice', 'nodes')">节点详解</button>
                                     <button class="tab-btn" onclick="switchTab('invoice', 'prototype')">产品原型</button>
+                                    <button class="tab-btn" onclick="switchTab('invoice', 'nodes')">节点详解</button>
                                     <button class="tab-btn" onclick="switchTab('invoice', 'test')">测试效果</button>
                                 </div>
                                 <div id="invoice-workflow" class="tab-content active">
@@ -677,6 +694,20 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/workflow_overview.png" alt="工作流全景图" loading="lazy">
                                             <div class="screenshot-caption">工作流全景图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="invoice-prototype" class="tab-content">
+                                    <div class="prototype-section">
+                                        <h4>
+                                            <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
+                                            产品原型与设计
+                                        </h4>
+                                        <div class="prototype-grid">
+                                            <div class="prototype-item" onclick="openLightbox(this)">
+                                                <img src="./assets/invoice/invoice-risk-engine.png" alt="三级风控引擎" loading="lazy">
+                                                <div class="prototype-caption">三级风控引擎流程图（Xmind）- PASS/REVIEW/REJECT 决策逻辑</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -693,14 +724,6 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/output_table_node.png" alt="输出表格节点" loading="lazy">
                                             <div class="screenshot-caption">输出表格节点</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="invoice-prototype" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/invoice/invoice-risk-engine.png" alt="产品原型-风控引擎" loading="lazy">
-                                            <div class="screenshot-caption">产品原型-风控引擎</div>
                                         </div>
                                     </div>
                                 </div>
@@ -727,7 +750,7 @@
             </div>
 
             <!-- Project 4: AIGC漫剧导演Agent -->
-            <div class="mb-20 fade-in">
+            <div class="mb-20">
                 <div class="glass rounded-2xl overflow-hidden project-card">
                     <div class="p-6 sm:p-8">
                         <div class="flex flex-col lg:flex-row gap-8">
@@ -745,7 +768,7 @@
                                     </div>
                                 </div>
                                 <h3 class="text-2xl font-bold mb-2">AIGC漫剧导演Agent</h3>
-                                <p class="text-dark-tertiary text-sm mb-4">Agent 编排全流程，角色设计 → 分镜规划 → 视频生成 → 后期剪辑</p>
+                                <p class="text-dark-tertiary text-sm mb-4">Agent 编排全流程，角色设计 -> 分镜规划 -> 视频生成 -> 后期剪辑</p>
                                 <div class="flex flex-wrap gap-2 mb-4">
                                     <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Agent编排</span>
                                     <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">多工作流联动</span>
@@ -754,31 +777,25 @@
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <a href="./assets/comic/prd.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                         PRD文档
                                     </a>
                                     <a href="./assets/comic/competitive_analysis.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                                         竞品分析
                                     </a>
                                     <a href="./AIGC漫剧导演Agent.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                                         源码下载
                                     </a>
                                 </div>
                             </div>
                             <div class="lg:w-3/5">
-                                <div class="flex gap-2 mb-4">
+                                <div class="flex gap-2 mb-4 flex-wrap">
                                     <button class="tab-btn active" onclick="switchTab('comic', 'architecture')">架构图</button>
+                                    <button class="tab-btn" onclick="switchTab('comic', 'prototype')">产品原型</button>
                                     <button class="tab-btn" onclick="switchTab('comic', 'workflow')">子工作流</button>
                                     <button class="tab-btn" onclick="switchTab('comic', 'nodes')">节点详解</button>
-                                    <button class="tab-btn" onclick="switchTab('comic', 'prototype')">产品原型</button>
                                     <button class="tab-btn" onclick="switchTab('comic', 'test')">测试效果</button>
                                 </div>
                                 <div id="comic-architecture" class="tab-content active">
@@ -786,6 +803,24 @@
                                         <div class="screenshot-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/agent_architecture.png" alt="Agent架构图" loading="lazy">
                                             <div class="screenshot-caption">Agent架构图</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comic-prototype" class="tab-content">
+                                    <div class="prototype-section">
+                                        <h4>
+                                            <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                            产品原型与设计
+                                        </h4>
+                                        <div class="prototype-grid">
+                                            <div class="prototype-item" onclick="openLightbox(this)">
+                                                <img src="./assets/comic/comic-func-structure.png" alt="功能架构图" loading="lazy">
+                                                <div class="prototype-caption">功能架构图（Xmind）- 4大Agent模块关系与数据流向</div>
+                                            </div>
+                                            <div class="prototype-item" onclick="openLightbox(this)">
+                                                <img src="./assets/comic/comic-core-flow.png" alt="核心交互流程" loading="lazy">
+                                                <div class="prototype-caption">核心交互流程（Figma）- 输入剧本到下载成片三步体验</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -845,18 +880,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="comic-prototype" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/comic/comic-func-structure.png" alt="产品原型-功能架构" loading="lazy">
-                                            <div class="screenshot-caption">产品原型-功能架构</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/comic/comic-core-flow.png" alt="产品原型-核心流程" loading="lazy">
-                                            <div class="screenshot-caption">产品原型-核心流程</div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div id="comic-test" class="tab-content">
                                     <div class="screenshot-grid">
                                         <div class="screenshot-item" onclick="openLightbox(this)">
@@ -892,7 +915,7 @@
     <!-- GitHub Section -->
     <section id="github" class="py-24 bg-bg-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 fade-in">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold mb-4">
                     开源 <span class="gradient-text">GitHub</span>
                 </h2>
@@ -901,7 +924,7 @@
                 </p>
             </div>
 
-            <div class="max-w-3xl mx-auto fade-in stagger-2">
+            <div class="max-w-3xl mx-auto">
                 <div class="glass rounded-2xl p-8">
                     <div class="flex items-center space-x-4 mb-6">
                         <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
@@ -937,21 +960,16 @@
                                 <span class="text-sm font-medium">「剧服通」AIGC客服能力测评系统</span>
                             </div>
                             <a href="./「剧服通」AIGC客服能力测评系统.yml" download class="text-primary hover:text-accent transition-colors text-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                             </a>
                         </div>
-
                         <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
                             <div class="flex items-center space-x-3">
                                 <span class="w-2 h-2 rounded-full bg-accent"></span>
                                 <span class="text-sm font-medium">ReviewMaster-Pro 简历质检系统</span>
                             </div>
                             <a href="./ReviewMaster-Pro _ 基于多模型编排的简历质检系统.yml" download class="text-primary hover:text-accent transition-colors text-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                             </a>
                         </div>
                         <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
@@ -960,9 +978,7 @@
                                 <span class="text-sm font-medium">智能发票审核工具</span>
                             </div>
                             <a href="./智能发票审核工具.yml" download class="text-primary hover:text-accent transition-colors text-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                             </a>
                         </div>
                         <div class="flex items-center justify-between p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors">
@@ -971,9 +987,7 @@
                                 <span class="text-sm font-medium">AIGC漫剧导演Agent</span>
                             </div>
                             <a href="./AIGC漫剧导演Agent.yml" download class="text-primary hover:text-accent transition-colors text-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                             </a>
                         </div>
                     </div>
@@ -992,16 +1006,16 @@
     <!-- Contact / Footer Section -->
     <section id="contact" class="py-24 bg-dark text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 fade-in">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold mb-4">
-                    Let's <span class="gradient-text">Connect</span>
+                    Let us <span class="gradient-text">Connect</span>
                 </h2>
                 <p class="text-gray-400 text-lg max-w-2xl mx-auto">
                     如果你对 AI 产品、Agent 编排或 AIGC 落地感兴趣，欢迎交流
                 </p>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-4 mb-16 fade-in stagger-2">
+            <div class="flex flex-wrap justify-center gap-4 mb-16">
                 <span class="px-4 py-2 rounded-full bg-white/10 text-sm">HTML</span>
                 <span class="px-4 py-2 rounded-full bg-white/10 text-sm">Tailwind CSS</span>
                 <span class="px-4 py-2 rounded-full bg-white/10 text-sm">Cloudflare Pages</span>
@@ -1010,22 +1024,18 @@
                 <span class="px-4 py-2 rounded-full bg-white/10 text-sm">AIGC</span>
             </div>
 
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 fade-in stagger-3">
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div class="text-gray-400 text-sm">
-                    &copy; 2026 马梦晗 · AI Product Manager
+                    2026 马梦晗 - AI Product Manager
                 </div>
                 <div class="flex items-center space-x-6">
                     <div class="flex items-center gap-2">
                         <a href="mailto:mamenghan9881@163.com" class="text-gray-400 hover:text-accent transition-colors flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/>
-                            </svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
                             <span class="text-sm">mamenghan9881@163.com</span>
                         </a>
                         <button onclick="copyEmail()" class="text-gray-400 hover:text-accent transition-colors ml-1" title="复制邮箱">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                            </svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                         </button>
                         <span id="copy-tip" class="text-xs text-accent opacity-0 transition-opacity duration-300">已复制!</span>
                     </div>
@@ -1035,7 +1045,6 @@
                         </svg>
                     </a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -1046,29 +1055,33 @@
     </div>
 
     <script>
-        // Tab switching
+        // Tab switching - simplified version
         function switchTab(project, tab) {
             // Hide all tab contents for this project
-            document.querySelectorAll('[id^="' + project + '-"]').forEach(el => {
-                el.classList.remove('active');
-            });
+            var contents = document.querySelectorAll('[id^="' + project + '-"]');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
             // Show selected tab content
-            document.getElementById(project + '-' + tab).classList.add('active');
+            var selected = document.getElementById(project + '-' + tab);
+            if (selected) {
+                selected.classList.add('active');
+            }
             // Update button states
-            const buttons = document.querySelectorAll('button[onclick^="switchTab(\'' + project + '\'"');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes("'" + tab + "'")) {
-                    btn.classList.add('active');
+            var buttons = document.querySelectorAll('button[onclick*="' + project + '"]');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+                if (buttons[i].getAttribute('onclick').indexOf(tab) !== -1) {
+                    buttons[i].classList.add('active');
                 }
-            });
+            }
         }
 
         // Lightbox
         function openLightbox(element) {
-            const img = element.querySelector('img');
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
+            var img = element.querySelector('img');
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightbox-img');
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;
             lightbox.classList.add('active');
@@ -1080,31 +1093,13 @@
             document.body.style.overflow = '';
         }
 
-        // Close lightbox on Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeLightbox();
         });
 
-        // Scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
         // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
+        var navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
             if (window.pageYOffset > 100) {
                 navbar.classList.add('nav-scrolled');
             } else {
@@ -1113,31 +1108,26 @@
         });
 
         // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuBtn.addEventListener('click', () => {
+        var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        var mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
-        });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
         });
 
         // Copy email function
         function copyEmail() {
-            navigator.clipboard.writeText('mamenghan9881@163.com').then(() => {
-                const tip = document.getElementById('copy-tip');
+            navigator.clipboard.writeText('mamenghan9881@163.com').then(function() {
+                var tip = document.getElementById('copy-tip');
                 tip.style.opacity = '1';
-                setTimeout(() => { tip.style.opacity = '0'; }, 2000);
+                setTimeout(function() { tip.style.opacity = '0'; }, 2000);
             });
         }
 
         // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                var target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
