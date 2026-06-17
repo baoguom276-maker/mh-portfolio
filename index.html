@@ -287,7 +287,236 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-    </style>
+    
+        /* ===== 新版项目卡片样式 ===== */
+        .project-card-wrapper {
+            margin-bottom: 3rem;
+        }
+        .project-card-v2 {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(91, 78, 255, 0.12);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px -8px rgba(91, 78, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 640px;
+        }
+        .project-card-v2:hover {
+            box-shadow: 0 20px 48px -12px rgba(91, 78, 255, 0.15);
+            transform: translateY(-4px);
+        }
+        @media (min-width: 1024px) {
+            .project-card-v2 {
+                flex-direction: row;
+            }
+        }
+        .project-left {
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(91, 78, 255, 0.08);
+        }
+        @media (min-width: 1024px) {
+            .project-left {
+                width: 38%;
+                min-width: 340px;
+                max-width: 420px;
+                border-bottom: none;
+                border-right: 1px solid rgba(91, 78, 255, 0.08);
+                padding: 2rem;
+            }
+        }
+        .project-video-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F0F4FF 0%, #E8EEFF 100%);
+            flex-shrink: 0;
+        }
+        .project-video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .project-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+            min-height: 0;
+        }
+        .project-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1A1A2E;
+            line-height: 1.4;
+            margin: 0;
+        }
+        .project-desc {
+            font-size: 0.875rem;
+            color: #8A8AA3;
+            line-height: 1.6;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 0.5rem;
+        }
+        .project-tags span {
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.08) 0%, rgba(0, 212, 255, 0.08) 100%);
+            color: #5B4EFF;
+            border: 1px solid rgba(91, 78, 255, 0.15);
+            white-space: nowrap;
+        }
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.08) 0%, rgba(0, 212, 255, 0.08) 100%);
+            border: 1px solid rgba(91, 78, 255, 0.2);
+            color: #5B4EFF;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            background: linear-gradient(135deg, rgba(91, 78, 255, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px -4px rgba(91, 78, 255, 0.2);
+        }
+        .project-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            min-height: 0;
+            overflow: hidden;
+        }
+        @media (min-width: 1024px) {
+            .project-right {
+                padding: 2rem;
+            }
+        }
+        .project-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+        .tab-btn-v2 {
+            padding: 0.6rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #8A8AA3;
+            white-space: nowrap;
+        }
+        .tab-btn-v2:hover {
+            background: rgba(91, 78, 255, 0.05);
+            color: #5B4EFF;
+        }
+        .tab-btn-v2.active {
+            background: linear-gradient(135deg, #5B4EFF 0%, #7B6FFF 100%);
+            color: white;
+            box-shadow: 0 4px 16px -4px rgba(91, 78, 255, 0.35);
+        }
+        .project-gallery {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .project-gallery::-webkit-scrollbar {
+            width: 6px;
+        }
+        .project-gallery::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .project-gallery::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #5B4EFF, #00D4FF);
+            border-radius: 3px;
+        }
+        .gallery-content {
+            display: none;
+        }
+        .gallery-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        .gallery-item {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(91, 78, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(91, 78, 255, 0.2);
+            border-color: rgba(91, 78, 255, 0.25);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-caption {
+            padding: 0.75rem;
+            font-size: 0.8rem;
+            color: #4A4A68;
+            background: #F8F9FC;
+            border-top: 1px solid rgba(91, 78, 255, 0.05);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+</style>
 </head>
 <body class="font-sans text-dark bg-bg-white antialiased">
 
@@ -404,7 +633,7 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+        <!-- Projects Section -->
     <section id="projects" class="py-24 bg-bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-in">
@@ -416,138 +645,125 @@
                 </p>
             </div>
 
-            <!-- Project 1: AIGC漫剧导演Agent -->
-            <div class="mb-20 fade-in">
-                <div class="glass rounded-2xl overflow-hidden project-card">
-                    <div class="p-6 sm:p-8">
-                        <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-                            <div class="lg:w-2/5 flex flex-col justify-between" style="min-height: 520px;">
-                                <div class="video-container mb-4">
-                                    <video controls poster="./assets/comic/agent_architecture.png">
-                                        <source src="./assets/comic/comic-demo.mp4" type="video/mp4">
-                                    </video>
+            <div class="space-y-12">
+                <!-- Project 1: AIGC漫剧导演Agent -->
+                <div class="project-card-wrapper fade-in">
+                    <div class="project-card-v2">
+                        <div class="project-left">
+                            <div class="project-video-wrap">
+                                <video controls poster="./assets/comic/agent_architecture.png">
+                                    <source src="./assets/comic/comic-demo.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="project-info">
+                                <h3>AIGC漫剧导演Agent</h3>
+                                <p class="project-desc">Agent 编排全流程，角色设计 → 分镜规划 → 视频生成 → 后期剪辑</p>
+                                <div class="project-tags">
+                                    <span>Agent编排</span>
+                                    <span>多工作流联动</span>
+                                    <span>即梦AI</span>
+                                    <span>火山引擎</span>
                                 </div>
-                                <h3 class="text-2xl font-bold mb-2">AIGC漫剧导演Agent</h3>
-                                <p class="text-dark-tertiary text-sm mb-4">Agent 编排全流程，角色设计 → 分镜规划 → 视频生成 → 后期剪辑</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Agent编排</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">多工作流联动</span>
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">即梦AI</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">火山引擎</span>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="./assets/comic/prd.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
-                                        PRD文档
-                                    </a>
-                                    <a href="./assets/comic/competitive_analysis.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
-                                        竞品分析
-                                    </a>
-                                    <a href="./AIGC漫剧导演Agent.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
-                                        源码下载
-                                    </a>
+                                <div class="project-actions">
+                                    <a href="./assets/comic/prd.docx" download class="action-btn">PRD文档</a>
+                                    <a href="./assets/comic/competitive_analysis.docx" download class="action-btn">竞品分析</a>
+                                    <a href="./AIGC漫剧导演Agent.yml" download class="action-btn">源码下载</a>
                                 </div>
                             </div>
-                            <div class="lg:w-3/5" style="min-height: 520px;">
-                                <div class="flex gap-2 mb-4">
-                                    <button class="tab-btn active" onclick="switchTab('comic', 'architecture')">架构图</button>
-                                    <button class="tab-btn" onclick="switchTab('comic', 'workflow')">子工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('comic', 'nodes')">节点详解</button>
-                                    <button class="tab-btn" onclick="switchTab('comic', 'test')">测试效果</button>
-                                </div>
-                                <div id="comic-architecture" class="tab-content active">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                        </div>
+                        <div class="project-right">
+                            <div class="project-tabs">
+                                <button class="tab-btn-v2 active" onclick="switchTab('comic', 'architecture')">架构图</button>
+                                <button class="tab-btn-v2" onclick="switchTab('comic', 'workflow')">子工作流</button>
+                                <button class="tab-btn-v2" onclick="switchTab('comic', 'nodes')">节点详解</button>
+                                <button class="tab-btn-v2" onclick="switchTab('comic', 'test')">测试效果</button>
+                            </div>
+                            <div class="project-gallery">
+                                <div id="comic-architecture" class="gallery-content active">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/agent_architecture.png" alt="Agent架构图" loading="lazy">
-                                            <div class="screenshot-caption">Agent架构图</div>
+                                            <div class="gallery-caption">Agent架构图</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="comic-workflow" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="comic-workflow" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/role_design_workflow.png" alt="角色设计工作流" loading="lazy">
-                                            <div class="screenshot-caption">角色设计工作流</div>
+                                            <div class="gallery-caption">角色设计工作流</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/storyboard_workflow.png" alt="分镜规划工作流" loading="lazy">
-                                            <div class="screenshot-caption">分镜规划工作流</div>
+                                            <div class="gallery-caption">分镜规划工作流</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/video_gen_workflow.png" alt="视频生成工作流" loading="lazy">
-                                            <div class="screenshot-caption">视频生成工作流</div>
+                                            <div class="gallery-caption">视频生成工作流</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/post_production_workflow.png" alt="后期剪辑工作流" loading="lazy">
-                                            <div class="screenshot-caption">后期剪辑工作流</div>
+                                            <div class="gallery-caption">后期剪辑工作流</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="comic-nodes" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="comic-nodes" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/script_analysis_node.png" alt="剧本分析节点" loading="lazy">
-                                            <div class="screenshot-caption">剧本分析节点</div>
+                                            <div class="gallery-caption">剧本分析节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/role_extraction_code.png" alt="角色提取代码节点" loading="lazy">
-                                            <div class="screenshot-caption">角色提取代码节点</div>
+                                            <div class="gallery-caption">角色提取代码节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/jimeng_image_gen_node.png" alt="即梦文生图节点" loading="lazy">
-                                            <div class="screenshot-caption">即梦文生图节点</div>
+                                            <div class="gallery-caption">即梦文生图节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/storyboard_llm_prompt.png" alt="分镜LLM提示词" loading="lazy">
-                                            <div class="screenshot-caption">分镜LLM提示词</div>
+                                            <div class="gallery-caption">分镜LLM提示词</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/csv_format_node.png" alt="CSV格式化节点" loading="lazy">
-                                            <div class="screenshot-caption">CSV格式化节点</div>
+                                            <div class="gallery-caption">CSV格式化节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/video_gen_mock.png" alt="视频生成Mock节点" loading="lazy">
-                                            <div class="screenshot-caption">视频生成Mock节点</div>
+                                            <div class="gallery-caption">视频生成Mock节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/video_url_collector.png" alt="视频URL收集节点" loading="lazy">
-                                            <div class="screenshot-caption">视频URL收集节点</div>
+                                            <div class="gallery-caption">视频URL收集节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/post_edit_code.png" alt="后期剪辑代码节点" loading="lazy">
-                                            <div class="screenshot-caption">后期剪辑代码节点</div>
+                                            <div class="gallery-caption">后期剪辑代码节点</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="comic-test" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="comic-test" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/test_welcome.png" alt="测试-开场白" loading="lazy">
-                                            <div class="screenshot-caption">测试-开场白</div>
+                                            <div class="gallery-caption">测试-开场白</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/test_character_design.png" alt="测试-角色设计" loading="lazy">
-                                            <div class="screenshot-caption">测试-角色设计</div>
+                                            <div class="gallery-caption">测试-角色设计</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/test_storyboard_confirm.png" alt="测试-分镜确认" loading="lazy">
-                                            <div class="screenshot-caption">测试-分镜确认</div>
+                                            <div class="gallery-caption">测试-分镜确认</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/test_video_gen_confirm.png" alt="测试-视频生成确认" loading="lazy">
-                                            <div class="screenshot-caption">测试-视频生成确认</div>
+                                            <div class="gallery-caption">测试-视频生成确认</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/comic/test_final_output.png" alt="测试-最终成片" loading="lazy">
-                                            <div class="screenshot-caption">测试-最终成片</div>
+                                            <div class="gallery-caption">测试-最终成片</div>
                                         </div>
                                     </div>
                                 </div>
@@ -555,82 +771,68 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- Project 2: 剧服通 -->
-            <div class="mb-20 fade-in">
-                <div class="glass rounded-2xl overflow-hidden project-card">
-                    <div class="p-6 sm:p-8">
-                        <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-                            <div class="lg:w-2/5 flex flex-col justify-between" style="min-height: 520px;">
-                                <div class="video-container mb-4">
-                                    <video controls poster="./assets/jufutong/workflow_overview.png">
-                                        <source src="./assets/jufutong/Jufutong-Demo.mp4" type="video/mp4">
-                                    </video>
+
+                <!-- Project 2: 剧服通 -->
+                <div class="project-card-wrapper fade-in">
+                    <div class="project-card-v2">
+                        <div class="project-left">
+                            <div class="project-video-wrap">
+                                <video controls poster="./assets/jufutong/workflow_overview.png">
+                                    <source src="./assets/jufutong/Jufutong-Demo.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="project-info">
+                                <h3>「剧服通」AIGC客服能力测评系统</h3>
+                                <p class="project-desc">基于真实业务场景的 5 轮对话测评，RAG 知识库 + 双维度评分 + Supabase 榜单</p>
+                                <div class="project-tags">
+                                    <span>Dify Workflow</span>
+                                    <span>RAG</span>
+                                    <span>Supabase</span>
+                                    <span>DeepSeek</span>
                                 </div>
-                                <h3 class="text-2xl font-bold mb-2">「剧服通」AIGC客服能力测评系统</h3>
-                                <p class="text-dark-tertiary text-sm mb-4">基于真实业务场景的 5 轮对话测评，RAG 知识库 + 双维度评分 + Supabase 榜单</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Dify Workflow</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">RAG</span>
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Supabase</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">DeepSeek</span>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="./assets/jufutong/prd.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
-                                        PRD文档
-                                    </a>
-                                    <a href="./assets/jufutong/competitive_analysis.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
-                                        竞品分析
-                                    </a>
-                                    <a href="./「剧服通」AIGC客服能力测评系统.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
-                                        源码下载
-                                    </a>
+                                <div class="project-actions">
+                                    <a href="./assets/jufutong/prd.docx" download class="action-btn">PRD文档</a>
+                                    <a href="./assets/jufutong/competitive_analysis.docx" download class="action-btn">竞品分析</a>
+                                    <a href="./「剧服通」AIGC客服能力测评系统.yml" download class="action-btn">源码下载</a>
                                 </div>
                             </div>
-                            <div class="lg:w-3/5" style="min-height: 520px;">
-                                <div class="flex gap-2 mb-4">
-                                    <button class="tab-btn active" onclick="switchTab('jufutong', 'workflow')">工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('jufutong', 'nodes')">节点详解</button>
-                                    <button class="tab-btn" onclick="switchTab('jufutong', 'test')">测试效果</button>
-                                </div>
-                                <div id="jufutong-workflow" class="tab-content active">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                        </div>
+                        <div class="project-right">
+                            <div class="project-tabs">
+                                <button class="tab-btn-v2 active" onclick="switchTab('jufutong', 'workflow')">工作流</button>
+                                <button class="tab-btn-v2" onclick="switchTab('jufutong', 'nodes')">节点详解</button>
+                                <button class="tab-btn-v2" onclick="switchTab('jufutong', 'test')">测试效果</button>
+                            </div>
+                            <div class="project-gallery">
+                                <div id="jufutong-workflow" class="gallery-content active">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/workflow_overview.png" alt="工作流全景图" loading="lazy">
-                                            <div class="screenshot-caption">工作流全景图</div>
+                                            <div class="gallery-caption">工作流全景图</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="jufutong-nodes" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="jufutong-nodes" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/llm_scoring_node.png" alt="LLM评分节点" loading="lazy">
-                                            <div class="screenshot-caption">LLM评分节点</div>
+                                            <div class="gallery-caption">LLM评分节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/rag_retrieval_node.png" alt="RAG知识检索节点" loading="lazy">
-                                            <div class="screenshot-caption">RAG知识检索节点</div>
+                                            <div class="gallery-caption">RAG知识检索节点</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="jufutong-test" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="jufutong-test" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/test_welcome.png" alt="测试-开场白" loading="lazy">
-                                            <div class="screenshot-caption">测试-开场白</div>
+                                            <div class="gallery-caption">测试-开场白</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/jufutong/test_scoring.png" alt="测试-评分结果" loading="lazy">
-                                            <div class="screenshot-caption">测试-评分结果</div>
+                                            <div class="gallery-caption">测试-评分结果</div>
                                         </div>
                                     </div>
                                 </div>
@@ -638,87 +840,72 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 3: ReviewMaster-Pro -->
-            <div class="mb-20 fade-in">
-                <div class="glass rounded-2xl overflow-hidden project-card">
-                    <div class="p-6 sm:p-8">
-                        <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-                            <div class="lg:w-2/5 flex flex-col justify-between" style="min-height: 520px;">
-                                <div class="video-container mb-4">
-                                    <video controls poster="./assets/resume/workflow_overview.png">
-                                        <source src="./assets/resume/resume-demo.mp4" type="video/mp4">
-                                    </video>
+                <!-- Project 3: ReviewMaster-Pro -->
+                <div class="project-card-wrapper fade-in">
+                    <div class="project-card-v2">
+                        <div class="project-left">
+                            <div class="project-video-wrap">
+                                <video controls poster="./assets/resume/workflow_overview.png">
+                                    <source src="./assets/resume/resume-demo.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="project-info">
+                                <h3>ReviewMaster-Pro 简历质检系统</h3>
+                                <p class="project-desc">多模型编排深度诊断，C-Level 视角，A/B 双版本重构，大厂产研方向</p>
+                                <div class="project-tags">
+                                    <span>多模型编排</span>
+                                    <span>知识库</span>
+                                    <span>DeepSeek</span>
+                                    <span>通义千问</span>
                                 </div>
-                                <h3 class="text-2xl font-bold mb-2">ReviewMaster-Pro 简历质检系统</h3>
-                                <p class="text-dark-tertiary text-sm mb-4">多模型编排深度诊断，C-Level 视角，A/B 双版本重构，大厂产研方向</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">多模型编排</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">知识库</span>
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">DeepSeek</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">通义千问</span>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="./assets/resume/prd.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
-                                        PRD文档
-                                    </a>
-                                    <a href="./assets/resume/competitive_analysis.docx" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
-                                        竞品分析
-                                    </a>
-                                    <a href="./ReviewMaster-Pro _ 基于多模型编排的简历质检系统.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
-                                        源码下载
-                                    </a>
+                                <div class="project-actions">
+                                    <a href="./assets/resume/prd.docx" download class="action-btn">PRD文档</a>
+                                    <a href="./assets/resume/competitive_analysis.docx" download class="action-btn">竞品分析</a>
+                                    <a href="./ReviewMaster-Pro _ 基于多模型编排的简历质检系统.yml" download class="action-btn">源码下载</a>
                                 </div>
                             </div>
-                            <div class="lg:w-3/5" style="min-height: 520px;">
-                                <div class="flex gap-2 mb-4">
-                                    <button class="tab-btn active" onclick="switchTab('resume', 'workflow')">工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('resume', 'nodes')">节点详解</button>
-                                    <button class="tab-btn" onclick="switchTab('resume', 'test')">测试效果</button>
-                                </div>
-                                <div id="resume-workflow" class="tab-content active">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                        </div>
+                        <div class="project-right">
+                            <div class="project-tabs">
+                                <button class="tab-btn-v2 active" onclick="switchTab('resume', 'workflow')">工作流</button>
+                                <button class="tab-btn-v2" onclick="switchTab('resume', 'nodes')">节点详解</button>
+                                <button class="tab-btn-v2" onclick="switchTab('resume', 'test')">测试效果</button>
+                            </div>
+                            <div class="project-gallery">
+                                <div id="resume-workflow" class="gallery-content active">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/workflow_overview.png" alt="工作流全景图" loading="lazy">
-                                            <div class="screenshot-caption">工作流全景图</div>
+                                            <div class="gallery-caption">工作流全景图</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="resume-nodes" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="resume-nodes" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/quality_screening_node..png" alt="质量初筛节点" loading="lazy">
-                                            <div class="screenshot-caption">质量初筛节点</div>
+                                            <div class="gallery-caption">质量初筛节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/core_engine_node.png" alt="核心引擎节点" loading="lazy">
-                                            <div class="screenshot-caption">核心引擎节点</div>
+                                            <div class="gallery-caption">核心引擎节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/output_validation_node.png" alt="输出校验节点" loading="lazy">
-                                            <div class="screenshot-caption">输出校验节点</div>
+                                            <div class="gallery-caption">输出校验节点</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="resume-test" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="resume-test" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/test_input.png" alt="测试-简历输入" loading="lazy">
-                                            <div class="screenshot-caption">测试-简历输入</div>
+                                            <div class="gallery-caption">测试-简历输入</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/resume/test_ab_comparison.png" alt="测试-A/B对比" loading="lazy">
-                                            <div class="screenshot-caption">测试-A/B对比</div>
+                                            <div class="gallery-caption">测试-A/B对比</div>
                                         </div>
                                     </div>
                                 </div>
@@ -726,79 +913,66 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 4: 智能发票审核工具 -->
-            <div class="mb-20 fade-in">
-                <div class="glass rounded-2xl overflow-hidden project-card">
-                    <div class="p-6 sm:p-8">
-                        <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-                            <div class="lg:w-2/5 flex flex-col justify-between" style="min-height: 520px;">
-                                <div class="video-container mb-4">
-                                    <video controls poster="./assets/invoice/workflow_overview.png">
-                                        <source src="./assets/invoice/invoice-demo.mp4" type="video/mp4">
-                                    </video>
+                <!-- Project 4: 智能发票审核工具 -->
+                <div class="project-card-wrapper fade-in">
+                    <div class="project-card-v2">
+                        <div class="project-left">
+                            <div class="project-video-wrap">
+                                <video controls poster="./assets/invoice/workflow_overview.png">
+                                    <source src="./assets/invoice/invoice-demo.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="project-info">
+                                <h3>智能发票审核工具</h3>
+                                <p class="project-desc">图片/PDF 批量识别，三层风控（PASS/REVIEW/REJECT），合规审计</p>
+                                <div class="project-tags">
+                                    <span>Dify Workflow</span>
+                                    <span>视觉识别</span>
+                                    <span>风控引擎</span>
+                                    <span>通义千问</span>
                                 </div>
-                                <h3 class="text-2xl font-bold mb-2">智能发票审核工具</h3>
-                                <p class="text-dark-tertiary text-sm mb-4">图片/PDF 批量识别，三层风控（PASS/REVIEW/REJECT），合规审计</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Dify Workflow</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">视觉识别</span>
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">风控引擎</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">通义千问</span>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="./智能发票审核工具.yml" class="download-btn" download>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                        </svg>
-                                        源码下载
-                                    </a>
+                                <div class="project-actions">
+                                    <a href="./智能发票审核工具.yml" download class="action-btn">源码下载</a>
                                 </div>
                             </div>
-                            <div class="lg:w-3/5" style="min-height: 520px;">
-                                <div class="flex gap-2 mb-4">
-                                    <button class="tab-btn active" onclick="switchTab('invoice', 'workflow')">工作流</button>
-                                    <button class="tab-btn" onclick="switchTab('invoice', 'nodes')">节点详解</button>
-                                    <button class="tab-btn" onclick="switchTab('invoice', 'test')">测试效果</button>
-                                </div>
-                                <div id="invoice-workflow" class="tab-content active">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                        </div>
+                        <div class="project-right">
+                            <div class="project-tabs">
+                                <button class="tab-btn-v2 active" onclick="switchTab('invoice', 'workflow')">工作流</button>
+                                <button class="tab-btn-v2" onclick="switchTab('invoice', 'nodes')">节点详解</button>
+                                <button class="tab-btn-v2" onclick="switchTab('invoice', 'test')">测试效果</button>
+                            </div>
+                            <div class="project-gallery">
+                                <div id="invoice-workflow" class="gallery-content active">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/workflow_overview.png" alt="工作流全景图" loading="lazy">
-                                            <div class="screenshot-caption">工作流全景图</div>
+                                            <div class="gallery-caption">工作流全景图</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="invoice-nodes" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="invoice-nodes" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/llm_vision_node.png" alt="LLM视觉识别节点" loading="lazy">
-                                            <div class="screenshot-caption">LLM视觉识别节点</div>
+                                            <div class="gallery-caption">LLM视觉识别节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/machine_audit_node.png" alt="机器审核节点" loading="lazy">
-                                            <div class="screenshot-caption">机器审核节点</div>
+                                            <div class="gallery-caption">机器审核节点</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/output_table_node.png" alt="输出表格节点" loading="lazy">
-                                            <div class="screenshot-caption">输出表格节点</div>
+                                            <div class="gallery-caption">输出表格节点</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="invoice-test" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
+                                <div id="invoice-test" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
                                             <img src="./assets/invoice/test_output.png" alt="测试-审核输出" loading="lazy">
-                                            <div class="screenshot-caption">测试-审核输出</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/invoice/test_output.png" alt="测试-审核输出" loading="lazy">
-                                            <div class="screenshot-caption">测试-审核输出</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/invoice/test_output.png" alt="测试-审核输出" loading="lazy">
-                                            <div class="screenshot-caption">测试-审核输出</div>
+                                            <div class="gallery-caption">测试-审核输出</div>
                                         </div>
                                     </div>
                                 </div>
@@ -806,119 +980,114 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-                        <!-- Project 5: 星语拾光 -->
-            <div class="mb-20 fade-in">
-                <div class="glass rounded-2xl overflow-hidden project-card">
-                    <div class="p-6 sm:p-8">
-                        <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-                            <div class="lg:w-2/5 flex flex-col justify-between" style="min-height: 520px;">
-                                <div class="video-container mb-4">
-                                    <video controls poster="./assets/xingyu-shiguang/01-register.png">
-                                        <source src="./assets/xingyu-shiguang/demo_video.mp4" type="video/mp4">
-                                    </video>
+                <!-- Project 5: 星语拾光 -->
+                <div class="project-card-wrapper fade-in">
+                    <div class="project-card-v2">
+                        <div class="project-left">
+                            <div class="project-video-wrap">
+                                <video controls poster="./assets/xingyu-shiguang/01-register.png">
+                                    <source src="./assets/xingyu-shiguang/demo_video.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="project-info">
+                                <h3>「星语拾光」校园微互助平台</h3>
+                                <p class="project-desc">校园社交互助平台，涵盖用户系统、校园汇帖、星光集市、二手交易、树洞专区、学习资料、热门推荐、举报系统、管理后台等10大模块</p>
+                                <div class="project-tags">
+                                    <span>Vue3</span>
+                                    <span>SpringBoot</span>
+                                    <span>MySQL</span>
+                                    <span>Element Plus</span>
+                                    <span>全栈开发</span>
                                 </div>
-                                <h3 class="text-2xl font-bold mb-2">「星语拾光」校园微互助平台</h3>
-                                <p class="text-dark-tertiary text-sm mb-4">校园社交互助平台，涵盖用户系统、校园汇帖、星光集市、二手交易、树洞专区、学习资料、热门推荐、举报系统、管理后台等10大模块</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Vue3</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">SpringBoot</span>
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">MySQL</span>
-                                    <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Element Plus</span>
-                                    <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">全栈开发</span>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="https://github.com/baoguom276-maker/mh-portfolio/tree/main/assets/xingyu-shiguang" target="_blank" class="download-btn">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                        </svg>
-                                        查看源码
-                                    </a>
+                                <div class="project-actions">
+                                    <a href="https://github.com/baoguom276-maker/mh-portfolio/tree/main/assets/xingyu-shiguang" target="_blank" class="action-btn">查看源码</a>
                                 </div>
                             </div>
-                            <div class="lg:w-3/5" style="min-height: 520px;">
-                                <div class="flex gap-2 mb-4 flex-wrap">
-                                    <button class="tab-btn active" onclick="switchTab('xingyu', 'user')">用户系统</button>
-                                    <button class="tab-btn" onclick="switchTab('xingyu', 'home')">首页/汇帖</button>
-                                    <button class="tab-btn" onclick="switchTab('xingyu', 'shop')">星光集市</button>
-                                    <button class="tab-btn" onclick="switchTab('xingyu', 'secondhand')">二手交易</button>
-                                    <button class="tab-btn" onclick="switchTab('xingyu', 'other')">树洞/资料/热门</button>
-                                    <button class="tab-btn" onclick="switchTab('xingyu', 'admin')">举报/后台</button>
-                                </div>
-                                <div id="xingyu-user" class="tab-content active">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/01-register.png" alt="用户注册" loading="lazy">
-                                            <div class="screenshot-caption">用户注册 - 欢迎加入星语拾光</div>
+                        </div>
+                        <div class="project-right">
+                            <div class="project-tabs">
+                                <button class="tab-btn-v2 active" onclick="switchTab('xingyu', 'user')">用户系统</button>
+                                <button class="tab-btn-v2" onclick="switchTab('xingyu', 'home')">首页/汇帖</button>
+                                <button class="tab-btn-v2" onclick="switchTab('xingyu', 'shop')">星光集市</button>
+                                <button class="tab-btn-v2" onclick="switchTab('xingyu', 'secondhand')">二手交易</button>
+                                <button class="tab-btn-v2" onclick="switchTab('xingyu', 'other')">树洞/资料/热门</button>
+                                <button class="tab-btn-v2" onclick="switchTab('xingyu', 'admin')">举报/后台</button>
+                            </div>
+                            <div class="project-gallery">
+                                <div id="xingyu-user" class="gallery-content active">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/01-register.png" alt="用户注册 - 欢迎加入星语拾光" loading="lazy">
+                                            <div class="gallery-caption">用户注册 - 欢迎加入星语拾光</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="xingyu-home" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/02-home.png" alt="首页动态" loading="lazy">
-                                            <div class="screenshot-caption">首页 - 校园动态与重要帖子</div>
+                                <div id="xingyu-home" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/02-home.png" alt="首页 - 校园动态与重要帖子" loading="lazy">
+                                            <div class="gallery-caption">首页 - 校园动态与重要帖子</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/03-post-publish.png" alt="发布帖子" loading="lazy">
-                                            <div class="screenshot-caption">校园汇帖 - 发布互助帖子</div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/03-post-publish.png" alt="校园汇帖 - 发布互助帖子" loading="lazy">
+                                            <div class="gallery-caption">校园汇帖 - 发布互助帖子</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/04-post-comment.png" alt="评论互动" loading="lazy">
-                                            <div class="screenshot-caption">评论互动 - 点赞/评论/举报</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="xingyu-shop" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/06-shop-list.png" alt="星光集市" loading="lazy">
-                                            <div class="screenshot-caption">星光集市 - 校园店铺聚合</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/07-shop-apply.png" alt="开店申请" loading="lazy">
-                                            <div class="screenshot-caption">我要开店 - 店铺入驻申请</div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/04-post-comment.png" alt="评论互动 - 点赞/评论/举报" loading="lazy">
+                                            <div class="gallery-caption">评论互动 - 点赞/评论/举报</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="xingyu-secondhand" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/08-secondhand-list.png" alt="二手列表" loading="lazy">
-                                            <div class="screenshot-caption">星尘市集 - 二手宝贝列表</div>
+                                <div id="xingyu-shop" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/06-shop-list.png" alt="星光集市 - 校园店铺聚合" loading="lazy">
+                                            <div class="gallery-caption">星光集市 - 校园店铺聚合</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/09-secondhand-publish..png" alt="发布宝贝" loading="lazy">
-                                            <div class="screenshot-caption">发布宝贝 - 二手交易发布</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="xingyu-other" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/05-treehole.png" alt="树洞专区" loading="lazy">
-                                            <div class="screenshot-caption">树洞专区 - 匿名倾诉空间</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/10-materials.png" alt="学习资料" loading="lazy">
-                                            <div class="screenshot-caption">星汇文苑 - 学习资料共享</div>
-                                        </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/11-hot.png" alt="热门推荐" loading="lazy">
-                                            <div class="screenshot-caption">星光荟萃 - 热门/精华推荐</div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/07-shop-apply.png" alt="我要开店 - 店铺入驻申请" loading="lazy">
+                                            <div class="gallery-caption">我要开店 - 店铺入驻申请</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="xingyu-admin" class="tab-content">
-                                    <div class="screenshot-grid">
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/12-report.png" alt="举报管理" loading="lazy">
-                                            <div class="screenshot-caption">举报系统 - 内容审核管理</div>
+                                <div id="xingyu-secondhand" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/08-secondhand-list.png" alt="星尘市集 - 二手宝贝列表" loading="lazy">
+                                            <div class="gallery-caption">星尘市集 - 二手宝贝列表</div>
                                         </div>
-                                        <div class="screenshot-item" onclick="openLightbox(this)">
-                                            <img src="./assets/xingyu-shiguang/13-admin-dashboard.png" alt="管理后台" loading="lazy">
-                                            <div class="screenshot-caption">管理后台 - 数据看板与运营</div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/09-secondhand-publish..png" alt="发布宝贝 - 二手交易发布" loading="lazy">
+                                            <div class="gallery-caption">发布宝贝 - 二手交易发布</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="xingyu-other" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/05-treehole.png" alt="树洞专区 - 匿名倾诉空间" loading="lazy">
+                                            <div class="gallery-caption">树洞专区 - 匿名倾诉空间</div>
+                                        </div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/10-materials.png" alt="星汇文苑 - 学习资料共享" loading="lazy">
+                                            <div class="gallery-caption">星汇文苑 - 学习资料共享</div>
+                                        </div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/11-hot.png" alt="星光荟萃 - 热门/精华推荐" loading="lazy">
+                                            <div class="gallery-caption">星光荟萃 - 热门/精华推荐</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="xingyu-admin" class="gallery-content">
+                                    <div class="gallery-grid">
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/12-report.png" alt="举报系统 - 内容审核管理" loading="lazy">
+                                            <div class="gallery-caption">举报系统 - 内容审核管理</div>
+                                        </div>
+                                        <div class="gallery-item" onclick="openLightbox(this)">
+                                            <img src="./assets/xingyu-shiguang/13-admin-dashboard.png" alt="管理后台 - 数据看板与运营" loading="lazy">
+                                            <div class="gallery-caption">管理后台 - 数据看板与运营</div>
                                         </div>
                                     </div>
                                 </div>
@@ -927,10 +1096,9 @@
                     </div>
                 </div>
             </div>
-</div>
+        </div>
     </section>
-
-    <!-- GitHub Section -->
+<!-- GitHub Section -->
     <section id="github" class="py-24 bg-bg-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-in">
